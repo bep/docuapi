@@ -8,6 +8,11 @@
 
      <link href='{{ relURL "slate/stylesheets/screen.css" }}' rel="stylesheet" media="screen" />
     <link href='{{ relURL "slate/stylesheets/print.css" }}' rel="stylesheet" media="print" />
+    {{ if .Param "search" }}
+      <script src='{{ relURL "slate/javascripts/all.js" }}'></script>
+    {{ else }}
+     <script src='{{ relURL "slate/javascripts/all_nosearch.js" }}'></script>
+    {{ end }}
   </head>
 
   <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
@@ -19,17 +24,14 @@
     </a>
     <div class="tocify-wrapper">
       <%= image_tag "logo.png" %>
-      <% if language_tabs %>
+        {{ with .Site.Params.language_tabs  }}
         <div class="lang-selector">
-          <% language_tabs.each do |lang| %>
-            <% if lang.is_a? Hash %>
-              <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-            <% else %>
-              <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-            <% end %>
-          <% end %>
+            {{ range  . }}          
+                  <a href="#" data-language-name="{{ .key }}">{{ .name  }}</a>
+            {{ end }}
         </div>
-      <% end %>
+        {{ end }}
+
       <% if current_page.data.search %>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -49,24 +51,22 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-          
        {{block "main" .}}This is the main content.{{end}} 
         <% current_page.data.includes && current_page.data.includes.each do |include| %>
           <%= partial "includes/#{include}" %>
         <% end %>
       </div>
       <div class="dark-box">
-        <% if language_tabs %>
+            {{ with .Site.Params.language_tabs  }}
           <div class="lang-selector">
-            <% language_tabs.each do |lang| %>
-              <% if lang.is_a? Hash %>
-                <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-              <% else %>
-                <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-              <% end %>
-            <% end %>
+           
+               {{ range  . }}
+               <a href="#" data-language-name="{{ .key }}">{{ .name  }}</a>
+            {{ end }}
+           
+
           </div>
-        <% end %>
+           {{ end }}
       </div>
     </div>
   </body>

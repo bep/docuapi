@@ -1,3 +1,5 @@
 {{define "main"}}
-FOO
+{{ range .Data.Pages }}
+{{ .Content }}
+{{ end }}
 {{end}}

@@ -3,3 +3,18 @@ themesdir = "../.."
 languageCode = "en-us"
 baseurl = "http://example.org/"
 title = "My API Doc"
+
+[params]
+search = true
+# Configure the language example tabs.
+[[params.language_tabs]]
+key = "shell"
+name = "Shell" 
+[[params.language_tabs]]
+key = "ruby"
+name = "Ruby"
+[[params.language_tabs]]
+key = "python"
+name = "Python"
+
+
