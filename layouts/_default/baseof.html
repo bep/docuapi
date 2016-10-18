@@ -15,17 +15,15 @@
     {{ end }}
   </head>
     
-
-
   <body class="index" data-languages="{{ with .Site.Params.language_tabs  }}[{{ range $i,$e := . }}{{- if $i -}}, {{ end -}}{{ printf "%v" $e.key }}{{end}}]{{ end }}">
     <a href="#" id="nav-button">
       <span>
         NAV
-        TODO <%= image_tag('navbar.png') %>
+        <img src='{{ relURL "slate/images/navbar.png" }}'/>
       </span>
     </a>
     <div class="tocify-wrapper">
-      <%= image_tag "logo.png" %>
+       <img src='{{ relURL "images/logo.png" }}'/>
         {{ with .Site.Params.language_tabs  }}
         <div class="lang-selector">
             {{ range  . }}          
@@ -34,12 +32,12 @@
         </div>
         {{ end }}
 
-      <% if current_page.data.search %>
+      {{ if .Site.Params.search }}
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
-      <% end %>
+      {{ end }}
       <div id="toc">
       </div>
       {{ with .Site.Params.toc_footers }}
