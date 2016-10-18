@@ -7,14 +7,17 @@
     <title>{{ .Title }}</title>
      <link href='{{ relURL "slate/stylesheets/screen.css" }}' rel="stylesheet" media="screen" />
     <link href='{{ relURL "slate/stylesheets/print.css" }}' rel="stylesheet" media="print" />
+  
     {{ if .Param "search" }}
       <script src='{{ relURL "slate/javascripts/all.js" }}'></script>
     {{ else }}
      <script src='{{ relURL "slate/javascripts/all_nosearch.js" }}'></script>
     {{ end }}
   </head>
+    
 
-  <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+
+  <body class="index" data-languages="{{ with .Site.Params.language_tabs  }}[{{ range $i,$e := . }}{{- if $i -}}, {{ end -}}{{ printf "%v" $e.key }}{{end}}]{{ end }}">
     <a href="#" id="nav-button">
       <span>
         NAV

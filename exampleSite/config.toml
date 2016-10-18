@@ -4,9 +4,14 @@ languageCode = "en-us"
 baseurl = "http://example.org/"
 title = "My API Doc"
 
+# Code higlighting settings
+pygmentsCodefences = true
+pygmentsCodeFencesGuesSsyntax = false
+#pygmentsOptions =  ""
+pygmentsStyle = "monokai"
+
 [params]
 search = true
-
 
 toc_footers = [ 
 "<a href='#'>Sign Up for a Developer Key</a>",
