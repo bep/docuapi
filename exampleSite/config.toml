@@ -6,6 +6,13 @@ title = "My API Doc"
 
 [params]
 search = true
+
+
+toc_footers = [ 
+"<a href='#'>Sign Up for a Developer Key</a>",
+"<a href='https://github.com/bep/hugo-slate'>Documentation Powered by Hugo Slate</a>"
+]
+  
 # Configure the language example tabs.
 [[params.language_tabs]]
 key = "shell"
@@ -16,5 +23,3 @@ name = "Ruby"
 [[params.language_tabs]]
 key = "python"
 name = "Python"
-
-
