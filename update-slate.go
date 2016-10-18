@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -47,9 +48,14 @@ func main() {
 		log.Fatal("Failed to move Slate sources: ", err)
 	}
 
+	if err := fixFontPaths(filepath.Join(filepath.Join(slateSource, "source", "stylesheets"))); err != nil {
+		log.Fatal("Failed to move Slate sources: ", err)
+	}
+
 	if err := compileSassSources(filepath.Join(slateSource, "source", "stylesheets"), filepath.Join(slateTarget, "stylesheets")); err != nil {
 		log.Fatal("Failed compile SASS stylesheets: ", err)
 	}
+
 }
 
 func cloneSlateInto(dir string) error {
@@ -103,6 +109,23 @@ func compileSassSources(source, target string) error {
 			return err
 		}
 
+	}
+	return nil
+}
+
+func fixFontPaths(base string) error {
+	for _, filename := range []string{"_icon-font.scss"} {
+		fp := filepath.Join(base, filename)
+		read, err := ioutil.ReadFile(fp)
+		if err != nil {
+			return err
+		}
+		nc := bytes.Replace(read, []byte("font-url('"), []byte("font-url('../fonts/"), -1)
+
+		err = ioutil.WriteFile(fp, nc, os.ModePerm)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
