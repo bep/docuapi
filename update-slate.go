@@ -3,8 +3,10 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -52,6 +54,10 @@ func main() {
 		log.Fatal("Failed to move Slate sources: ", err)
 	}
 
+	if err := fetchJavaScripts(filepath.Join(slateTarget, "javascripts")); err != nil {
+		log.Fatal("Failed to fetch JS: ", err)
+	}
+
 	if err := compileSassSources(filepath.Join(slateSource, "source", "stylesheets"), filepath.Join(slateTarget, "stylesheets")); err != nil {
 		log.Fatal("Failed compile SASS stylesheets: ", err)
 	}
@@ -67,9 +73,38 @@ func cloneSlateInto(dir string) error {
 }
 
 var staticSlateDirs = []string{
-	"javascripts",
 	"images",
 	"fonts",
+}
+
+// TODO(bep) create JS bundles?
+func fetchJavaScripts(target string) error {
+	os.MkdirAll(target, os.ModePerm)
+	for _, resource := range []string{"all.js", "all_nosearch.js"} {
+		url := "https://lord.github.io/slate/javascripts/" + resource
+		filepath := filepath.Join(target, resource)
+		out, err := os.Create(filepath)
+		if err != nil {
+			return err
+		}
+
+		resp, err := http.Get(url)
+		if err != nil {
+			return err
+		}
+
+		_, err = io.Copy(out, resp.Body)
+		if err != nil {
+			return err
+		}
+
+		resp.Body.Close()
+		out.Close()
+
+	}
+
+	return nil
+
 }
 
 func replaceSlateSourcesInTheme(source, target string) error {

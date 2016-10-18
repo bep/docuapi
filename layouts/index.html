@@ -1,6 +1,5 @@
 {{define "main"}}
 {{ range .Data.Pages }}
-<div name="{{ .Title | lower }}" data-unique="{{ .Title | lower }}"></div>
 {{ .Content }}
 {{ end }}
 {{end}}
