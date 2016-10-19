@@ -1,3 +1,17 @@
+// Copyright 2016 Bjørn Erik Pedersen <bjorn.erik.pedersen@gmail.com>s. All rights reserved.
+//
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package main
 
 import (
@@ -13,6 +27,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	shutil "github.com/termie/go-shutil"
 	libsass "github.com/wellington/go-libsass"
 )
 
@@ -97,6 +112,7 @@ func (b *bundler) init() error {
 
 func (b *bundler) fetchSlateIfNeeded() error {
 	if b.slateSource != "" {
+		b.logger.Println("Use existing Slate clone in", b.slateSource)
 		return nil
 	}
 
@@ -119,8 +135,8 @@ func (b *bundler) fetchSlateIfNeeded() error {
 
 func (b *bundler) replaceSlateSourcesInTheme() error {
 	for _, staticDir := range staticSlateDirs {
-		b.logger.Println("Move", staticDir)
-		if err := os.Rename(filepath.Join(b.slateSource, "source", staticDir), filepath.Join(b.slateTarget, staticDir)); err != nil {
+		b.logger.Println("Copy", staticDir)
+		if err := shutil.CopyTree(filepath.Join(b.slateSource, "source", staticDir), filepath.Join(b.slateTarget, staticDir), nil); err != nil {
 			return err
 		}
 	}
@@ -188,7 +204,8 @@ func (b *bundler) compileSassSources() error {
 func (b *bundler) createJSBundles() error {
 	src := filepath.Join(b.slateSource, "source", "javascripts")
 	dst := filepath.Join(b.slateTarget, "javascripts")
-	jsB := newJSBundler(src, dst)
+	overrides := filepath.Join(b.slateTarget, "..", "..", "assets", "javascripts")
+	jsB := newJSBundler(src, dst, overrides)
 	return jsB.bundle()
 }
 
@@ -203,6 +220,9 @@ type jsBundler struct {
 	src string
 	dst string
 
+	overridesSrc string
+	overrides    map[string][]byte
+
 	logger *log.Logger
 
 	// Per bundle
@@ -210,11 +230,37 @@ type jsBundler struct {
 	buff bytes.Buffer
 }
 
-func newJSBundler(src, dst string) *jsBundler {
-	return &jsBundler{src: src, dst: dst, logger: logger}
+func newJSBundler(src, dst, overridesSrc string) *jsBundler {
+	return &jsBundler{src: src, dst: dst, overridesSrc: overridesSrc, logger: logger, overrides: make(map[string][]byte)}
+}
+
+func (j *jsBundler) readOverrides() error {
+	j.logger.Println("Looking for overrides in", j.overridesSrc)
+	return filepath.Walk(j.overridesSrc, func(path string, info os.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
+		libPath := strings.TrimPrefix(path, j.overridesSrc)
+		libPath = strings.TrimPrefix(libPath, string(filepath.Separator))
+		j.logger.Println("Adding override:", libPath)
+
+		libContent, err := ioutil.ReadFile(path)
+		if err != nil {
+			return err
+		}
+
+		j.overrides[libPath] = libContent
+
+		return nil
+	})
+
 }
 
 func (j *jsBundler) bundle() error {
+
+	if err := j.readOverrides(); err != nil {
+		return err
+	}
 
 	if err := os.MkdirAll(j.dst, os.ModePerm); err != nil {
 		return err
@@ -256,15 +302,25 @@ func (j *jsBundler) newBundle(filename string) error {
 
 func (j *jsBundler) handleFile(filename string) error {
 
-	file, err := os.Open(filename)
-	if err != nil {
-		return err
-	}
+	var (
+		overridenContent = j.getOverrideIfFound(filename)
+		currDir          = filepath.Dir(filename)
+		libs             []string
+	)
 
-	// TODO(bep) exclude the requires when writing to bundle
-	libs := j.extractRequiredLibs(file)
-	currDir := filepath.Dir(filename)
-	file.Close()
+	if overridenContent == nil {
+		file, err := os.Open(filename)
+		if err != nil {
+			return err
+		}
+
+		// TODO(bep) exclude the requires when writing to bundle
+		libs = j.extractRequiredLibs(file)
+
+		file.Close()
+	} else {
+		libs = j.extractRequiredLibs(bytes.NewReader(overridenContent))
+	}
 
 	for _, lib := range libs {
 		if j.seen[lib] {
@@ -276,16 +332,23 @@ func (j *jsBundler) handleFile(filename string) error {
 		lib += ".js"
 		libFilename := filepath.Join(currDir, lib)
 
-		j.logger.Println("Handle lib", libFilename)
+		//j.logger.Println("Handle lib", lib)
 
 		// Must write its dependencies first
 		if err := j.handleFile(libFilename); err != nil {
 			return err
 		}
 
-		content, err := ioutil.ReadFile(libFilename)
-		if err != nil {
-			return err
+		var content []byte
+		var err error
+
+		content = j.getOverrideIfFound(libFilename)
+
+		if content == nil {
+			content, err = ioutil.ReadFile(libFilename)
+			if err != nil {
+				return err
+			}
 		}
 
 		_, err = j.buff.Write(content)
@@ -296,6 +359,12 @@ func (j *jsBundler) handleFile(filename string) error {
 	}
 
 	return nil
+}
+
+func (j *jsBundler) getOverrideIfFound(filename string) []byte {
+	libPath := strings.TrimPrefix(filename, j.src)
+	libPath = strings.TrimPrefix(libPath, string(filepath.Separator))
+	return j.overrides[libPath]
 }
 
 func (j *jsBundler) extractRequiredLibs(r io.Reader) []string {

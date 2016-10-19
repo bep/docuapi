@@ -10020,7 +10020,7 @@ under the License.
   'use strict';
 
   var languages = [];
-
+    
   global.setupLanguages = setupLanguages;
   global.activateLanguage = activateLanguage;
 
