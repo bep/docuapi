@@ -1,8 +1,8 @@
-theme = "hugo-slate"
+theme = "docuapi"
 themesdir = "../.."
 languageCode = "en-us"
 baseurl = "http://example.org/"
-title = "My API Doc"
+title = "DocuAPI Example Site"
 
 # Code higlighting settings
 pygmentsCodefences = true

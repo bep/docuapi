@@ -1,5 +1,6 @@
-# hugo-slate
+# DocuAPI - API Documenation Theme for Hugo
 
-WORK IN PROGRESS: Beautiful Hugo documentation Hugo theme for your API
+WORK IN PROGRESS: Beautiful documentation theme for your API. Use Hugo to build it.
 
-Based on https://github.com/lord/slate
+This theme is based on the beautiful work of [Robert Lord](https://github.com/lord) on the [Slate](https://github.com/lord/slate) project ([Apache 2 License](https://github.com/lord/slate/blob/master/LICENSE)).
+
