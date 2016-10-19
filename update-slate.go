@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"io"
@@ -14,6 +15,63 @@ import (
 
 	libsass "github.com/wellington/go-libsass"
 )
+
+type jsBundler struct {
+	src string
+	dst string
+}
+
+func (j *jsBundler) bundle() error {
+
+	//	var bundle bytes.Buffer
+	seen := make(map[string]bool)
+
+	fis, err := ioutil.ReadDir(j.src)
+	if err != nil {
+		return err
+	}
+
+	for _, fi := range fis {
+		if !strings.HasSuffix(fi.Name(), ".js") {
+			continue
+		}
+		fmt.Println("Handle file", fi.Name())
+		filename := filepath.Join(j.src, fi.Name())
+		file, err := os.Open(filename)
+		if err != nil {
+			return err
+		}
+		libs := extractRequiredLibs(file)
+		file.Close()
+		for _, lib := range libs {
+			if seen[lib] {
+				continue
+			}
+			seen[lib] = true
+
+			lib += ".js"
+			libFilename := filepath.Join(j.src, lib)
+			fmt.Println(">>>", libFilename)
+
+		}
+
+	}
+
+	return nil
+}
+
+func extractRequiredLibs(r io.Reader) []string {
+	const require = "//= require"
+	scanner := bufio.NewScanner(r)
+	var libs []string
+	for scanner.Scan() {
+		t := strings.TrimSpace(scanner.Text())
+		if strings.HasPrefix(t, require) {
+			libs = append(libs, t[len(require):])
+		}
+	}
+	return libs
+}
 
 func main() {
 
@@ -33,6 +91,15 @@ func main() {
 	if err := os.MkdirAll(slateTarget, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
+
+	/*if true {
+		b := jsBundler{"/Users/bep/dev/clone/slate/source/javascripts", filepath.Join(slateTarget, "javascripts")}
+		err := b.bundle()
+		if err != nil {
+			log.Fatal(err)
+		}
+		return
+	}*/
 
 	fmt.Println("Update Slate from source ...")
 
