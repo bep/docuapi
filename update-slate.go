@@ -16,63 +16,6 @@ import (
 	libsass "github.com/wellington/go-libsass"
 )
 
-type jsBundler struct {
-	src string
-	dst string
-}
-
-func (j *jsBundler) bundle() error {
-
-	//	var bundle bytes.Buffer
-	seen := make(map[string]bool)
-
-	fis, err := ioutil.ReadDir(j.src)
-	if err != nil {
-		return err
-	}
-
-	for _, fi := range fis {
-		if !strings.HasSuffix(fi.Name(), ".js") {
-			continue
-		}
-		fmt.Println("Handle file", fi.Name())
-		filename := filepath.Join(j.src, fi.Name())
-		file, err := os.Open(filename)
-		if err != nil {
-			return err
-		}
-		libs := extractRequiredLibs(file)
-		file.Close()
-		for _, lib := range libs {
-			if seen[lib] {
-				continue
-			}
-			seen[lib] = true
-
-			lib += ".js"
-			libFilename := filepath.Join(j.src, lib)
-			fmt.Println(">>>", libFilename)
-
-		}
-
-	}
-
-	return nil
-}
-
-func extractRequiredLibs(r io.Reader) []string {
-	const require = "//= require"
-	scanner := bufio.NewScanner(r)
-	var libs []string
-	for scanner.Scan() {
-		t := strings.TrimSpace(scanner.Text())
-		if strings.HasPrefix(t, require) {
-			libs = append(libs, t[len(require):])
-		}
-	}
-	return libs
-}
-
 func main() {
 
 	pwd, err := os.Getwd()
@@ -91,15 +34,6 @@ func main() {
 	if err := os.MkdirAll(slateTarget, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
-
-	/*if true {
-		b := jsBundler{"/Users/bep/dev/clone/slate/source/javascripts", filepath.Join(slateTarget, "javascripts")}
-		err := b.bundle()
-		if err != nil {
-			log.Fatal(err)
-		}
-		return
-	}*/
 
 	fmt.Println("Update Slate from source ...")
 
@@ -121,8 +55,8 @@ func main() {
 		log.Fatal("Failed to move Slate sources: ", err)
 	}
 
-	if err := fetchJavaScripts(filepath.Join(slateTarget, "javascripts")); err != nil {
-		log.Fatal("Failed to fetch JS: ", err)
+	if err := createJSBundles(filepath.Join(slateSource, "source", "javascripts"), filepath.Join(slateTarget, "javascripts")); err != nil {
+		log.Fatal("Failed to bundle JS: ", err)
 	}
 
 	if err := compileSassSources(filepath.Join(slateSource, "source", "stylesheets"), filepath.Join(slateTarget, "stylesheets")); err != nil {
@@ -142,6 +76,11 @@ func cloneSlateInto(dir string) error {
 var staticSlateDirs = []string{
 	"images",
 	"fonts",
+}
+
+func createJSBundles(src, dst string) error {
+	b := newJSBUndler(src, dst)
+	return b.bundle()
 }
 
 // TODO(bep) create JS bundles?
@@ -230,4 +169,109 @@ func fixFontPaths(base string) error {
 		}
 	}
 	return nil
+}
+
+type jsBundler struct {
+	src string
+	dst string
+
+	// Per bundle
+	seen map[string]bool
+	buff bytes.Buffer
+}
+
+func newJSBUndler(src, dst string) *jsBundler {
+	return &jsBundler{src: src, dst: dst}
+}
+
+func (j *jsBundler) bundle() error {
+
+	if err := os.MkdirAll(j.dst, os.ModePerm); err != nil {
+		return err
+	}
+
+	fis, err := ioutil.ReadDir(j.src)
+	if err != nil {
+		return err
+	}
+
+	for _, fi := range fis {
+		if !strings.HasSuffix(fi.Name(), ".js") {
+			continue
+		}
+		filename := filepath.Join(j.src, fi.Name())
+		if err := j.newBundle(filename); err != nil {
+			return err
+		}
+		if err = ioutil.WriteFile(filepath.Join(j.dst, fi.Name()), j.buff.Bytes(), os.ModePerm); err != nil {
+			return fmt.Errorf("Failed to write to destination: %s", err)
+		}
+
+	}
+
+	return nil
+}
+
+func (j *jsBundler) newBundle(filename string) error {
+	fmt.Println("New bundle from ", filename)
+	j.seen = make(map[string]bool)
+	j.buff.Reset()
+
+	return j.handleFile(filename)
+}
+
+func (j *jsBundler) handleFile(filename string) error {
+
+	file, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+
+	libs := j.extractRequiredLibs(file)
+	currDir := filepath.Dir(filename)
+	file.Close()
+	for _, lib := range libs {
+		if j.seen[lib] {
+			continue
+		}
+		j.seen[lib] = true
+
+		lib += ".js"
+		libFilename := filepath.Join(currDir, lib)
+
+		fmt.Println("Handle lib", libFilename)
+
+		// Must write the dependencies first.
+		if err := j.handleFile(libFilename); err != nil {
+			return err
+		}
+
+		// Write this to the bundle and continue
+		content, err := ioutil.ReadFile(libFilename)
+		if err != nil {
+			return err
+		}
+
+		j.buff.WriteString(fmt.Sprintf("\n\n// bep's Poor Man's JS bundler: %s\n// ----\n", lib))
+		_, err = j.buff.Write(content)
+		if err != nil {
+			return err
+		}
+
+	}
+
+	return nil
+}
+
+func (j *jsBundler) extractRequiredLibs(r io.Reader) []string {
+	const require = "//= require"
+	scanner := bufio.NewScanner(r)
+	var libs []string
+	for scanner.Scan() {
+		t := strings.TrimSpace(scanner.Text())
+		if strings.HasPrefix(t, require) {
+			libs = append(libs, strings.TrimSpace(t[len(require):]))
+		}
+	}
+	return libs
 }
