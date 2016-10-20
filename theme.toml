@@ -4,7 +4,7 @@ licenselink = "https://github.com/bep/docuapi/blob/master/LICENSE.md"
 description = "Beautiful docuemtation for your API."
 homepage = "https://github.com/bep/docuapi/"
 tags = ["Documentation", "API"]
-features = ["Documentation", ""]
+features = ["Documentation", "Multilingual"]
 min_version = 0.17
 
 [author]

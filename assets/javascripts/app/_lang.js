@@ -32,11 +32,11 @@ under the License.
     // Mod to match Pygments from Hugo: div.highlight > pre code.language-ruby
     var codeSelectorPrefix = ".highlight code.language-";
     for (var i=0; i < languages.length; i++) {
-      $(codeSelectorPrefix + languages[i]).hide();
+      $(codeSelectorPrefix + languages[i]).parentsUntil(".highlight").hide();
       $(".lang-specific." + languages[i]).hide();
     }
-    $(codeSelectorPrefix + language).show();
-    $(".lang-specific." + language).show();
+    $(codeSelectorPrefix + language).parentsUntil(".highlight").show();
+    $(".lang-specific." + language).parentsUntil(".highlight").show();
 
     global.toc.calculateHeights();
 
