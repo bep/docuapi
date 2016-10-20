@@ -1,6 +1,6 @@
 **DocuAPI** is a beautiful multilingual API documentation theme for [Hugo](http://gohugo.io/). This theme is built on top of the beautiful work of [Robert Lord](https://github.com/lord) and others on the [Slate](https://github.com/lord/slate) project ([Apache 2 License](https://github.com/lord/slate/blob/master/LICENSE)).
 
-![Screenshot DocuAPI Excample site](images/screenshot.png)
+![Screenshot DocuAPI Excample site](https://raw.githubusercontent.com/bep/docuapi/master/images/screenshot.png)
 
 ## Use
 
