@@ -6,3 +6,11 @@
     clear:none;
   }
 }
+
+// The section(s) below are just pulled over from _variables.scss in Slate and adjusted.
+
+// Make the selected code language a nice blue.
+$lang-select-active-bg: $nav-active-bg; 
+
+// Make the main background color slightly lighter than the original.
+$main-bg: lighten(#eaf2f6, 2%);
