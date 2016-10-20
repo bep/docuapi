@@ -1,10 +1,12 @@
 **DocuAPI** is a beautiful multilingual API documentation theme for [Hugo](http://gohugo.io/). This theme is built on top of the beautiful work of [Robert Lord](https://github.com/lord) and others on the [Slate](https://github.com/lord/slate) project ([Apache 2 License](https://github.com/lord/slate/blob/master/LICENSE)).
 
-![Screenshot DocuAPI Excample site](https://raw.githubusercontent.com/bep/docuapi/master/images/screenshot.png)
+![Screenshot DocuAPI Example site](https://raw.githubusercontent.com/bep/docuapi/master/images/screenshot.png)
 
 ## Use
 
-See the [exampleSite](/exampleSite) and more specific its site [configuration](/exampleSite/config.toml) for the available options.
+See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) and more specific its site [configuration](https://github.com/bep/docuapi/blob/master/exampleSite/config.toml) for the available options.
+
+**Note that this theme needs Pygments installed to render code samples. See [pygments.org](http://pygments.org/)**
 
 **Most notable:** This theme will use all the (non drafts) pages in the site and build a single-page API documentation. Using `weight` in the page front matter is the easiest way to control page order.
 
@@ -18,7 +20,7 @@ But you may find styling issues, etc., that you want to fix. Pull requests of th
 
 **If you find issues that obviously belongs to  [Slate](https://github.com/lord/slate), then please report/fix them there, and we will pull in the latest changes here when that is done.**
 
-This project provides a very custom asset bundler in [bundler.go](bundler.go) written in Go.
+This project provides a very custom asset bundler in [bundler.go](https://github.com/bep/docuapi/blob/master/bundler.go) written in Go.
 
 It depends on `libsass` to build, so you will need `gcc` (a C compiler) to build it for your platform. If that is present, you can try:
 
