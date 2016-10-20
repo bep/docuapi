@@ -12,14 +12,10 @@ pygmentsStyle = "monokai"
 # The monokai stylesheet is included in the base template.
 pygmentsUseClasses = true
 
+defaultContentLanguage = "en"
 
 [params]
 search = true
-
-toc_footers = [ 
-"<a href='#'>Sign Up for a Developer Key</a>",
-"<a href='https://github.com/bep/hugo-slate'>Documentation Powered by Hugo Slate</a>"
-]
   
 # Configure the language example tabs.
 [[params.language_tabs]]
@@ -37,3 +33,39 @@ name = "Python"
 [[params.language_tabs]]
 key = "javascript"
 name = "Javascript"
+
+#Languages 
+[languages]
+
+[languages.en]
+languageName = "English"
+weight = 2
+title = "DocuAPI Example Site"
+
+# Left sidebar footer items. Use HTMl or Markdown.
+toc_footers = [ 
+"<a href='#'>Sign Up for a Developer Key</a>",
+"Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
+"Hugo Theme by [bep](https://github.com/bep)"
+]
+[languages.en.blackfriday]
+angledQuotes = false
+hrefTargetBlank = true
+
+
+[languages.nn]
+languageName = "Nynorsk"
+weight = 1
+title = "DocuAPI-døme"
+
+# Left sidebar footer items. Use HTMl or Markdown.
+toc_footers = [ 
+"<a href='#'>Registrer deg for ein utviklarnøkkel</a>",
+"Dokumentasjonen er driven av [DocuAPI](https://github.com/bep/docuapi)",
+"Hugo Theme av [bep](https://github.com/bep)"
+]
+
+[languages.nn.blackfriday]
+# Norwegian uses angled quotes
+angledQuotes = true
+hrefTargetBlank = true

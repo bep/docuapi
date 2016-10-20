@@ -1,3 +1,14 @@
+
+
+// The section(s) below are just pulled over from _variables.scss in Slate and adjusted.
+
+// Make the selected code language a nice blue.
+$lang-select-active-bg: $nav-active-bg; 
+
+// Make the main background color slightly lighter than the original.
+$main-bg: lighten(#eaf2f6, 2%);
+
+
 // This will be added as the last import to the original Slate screen.css.scs. TOOD(bep) Print?
 
 .content {
@@ -7,10 +18,11 @@
   }
 }
 
-// The section(s) below are just pulled over from _variables.scss in Slate and adjusted.
-
-// Make the selected code language a nice blue.
-$lang-select-active-bg: $nav-active-bg; 
-
-// Make the main background color slightly lighter than the original.
-$main-bg: lighten(#eaf2f6, 2%);
+.toc-footer {
+    .translations-title {
+        background-color: $nav-subitem-bg;
+        padding: 10px $nav-padding;
+        color: $nav-text;
+        font-size: 12px;
+    }
+}

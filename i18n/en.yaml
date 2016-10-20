@@ -1,0 +1,4 @@
+- id: translations
+  translation: 
+    one: "Translation"
+    other: "Translations"

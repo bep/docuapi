@@ -419,6 +419,12 @@ under the License.
 .content > div.highlight {
   clear: none; }
 
+.toc-footer .translations-title {
+  background-color: #262626;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 12px; }
+
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
 
