@@ -5,8 +5,9 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>{{ .Title }}</title>
-     <link href='{{ relURL "slate/stylesheets/screen.css" }}' rel="stylesheet" media="screen" />
-    <link href='{{ relURL "slate/stylesheets/print.css" }}' rel="stylesheet" media="print" />
+        <link href='{{ relURL "slate/stylesheets/monokai.css" }}' rel="stylesheet" media="screen" />
+        <link href='{{ relURL "slate/stylesheets/screen.css" }}' rel="stylesheet" media="screen" />
+        <link href='{{ relURL "slate/stylesheets/print.css" }}' rel="stylesheet" media="print" />
     {{ if .Param "search" }}
       <script src='{{ relURL "slate/javascripts/all.js" }}'></script>
     {{ else }}

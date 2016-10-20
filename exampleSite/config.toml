@@ -9,10 +9,9 @@ pygmentsCodefences = true
 pygmentsCodeFencesGuesSsyntax = false
 pygmentsOptions = ""
 pygmentsStyle = "monokai"
-pygmentsUseClasses = false
+# The monokai stylesheet is included in the base template.
+pygmentsUseClasses = true
 
-# For debugging
-ignoreCache = false
 
 [params]
 search = true
