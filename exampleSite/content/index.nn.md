@@ -63,7 +63,7 @@ Kittn forventar at API-nøkkelen er med i alle API-førespurnader til serveren i
 <aside class="notice">
 Merk:  Du må erstatte <code>meowmeowmeow</code> med din personlege nøkkel.</aside>
 
-# Kattunagar
+# Kattungar
 
 ## Hent alle kattungane
 
