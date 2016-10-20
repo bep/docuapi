@@ -1,0 +1,8 @@
+// This will be added as the last import to the original Slate screen.css.scs. TOOD(bep) Print?
+
+.content {
+  // prevent clearing of higlight divs
+  &>div.highlight {
+    clear:none;
+  }
+}

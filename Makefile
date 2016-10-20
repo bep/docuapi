@@ -10,8 +10,9 @@
 #
 
 # TODO: Figure a way to watch recursive
-WATCH_PATHS = ./assets/*.* ./assets/javascripts/*.* ./assets/javascripts/app/*.*
 SLATE_DIR := /Users/bep/dev/clone/slate
+WATCH_PATHS = ./assets/*.* ./assets/javascripts/*.* ./assets/javascripts/app/*.*
+WATCH_PATHS := ${WATCH_PATHS} ./assets/stylesheets/*.*
 
 build:
 	go run bundler.go -slate=${SLATE_DIR}

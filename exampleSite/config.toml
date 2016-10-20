@@ -7,8 +7,12 @@ title = "DocuAPI Example Site"
 # Code higlighting settings
 pygmentsCodefences = true
 pygmentsCodeFencesGuesSsyntax = false
-#pygmentsOptions =  ""
+pygmentsOptions = ""
 pygmentsStyle = "monokai"
+pygmentsUseClasses = false
+
+# For debugging
+ignoreCache = false
 
 [params]
 search = true

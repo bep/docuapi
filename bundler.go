@@ -32,6 +32,9 @@ import (
 )
 
 const (
+
+	// The source for the styles and scripts.
+	// If you have Slate locally, set the slate flag.
 	slateRepo = "https://github.com/lord/slate.git"
 )
 
@@ -74,8 +77,8 @@ func main() {
 		logger.Fatal("Failed to move Slate sources: ", err)
 	}
 
-	if err := bundler.fixFontPaths(); err != nil {
-		logger.Fatal("Failed to move Slate sources: ", err)
+	if err := bundler.mergeAndAdjustStyles(); err != nil {
+		logger.Fatal("Failed to edit Slate sources: ", err)
 	}
 
 	if err := bundler.createJSBundles(); err != nil {
@@ -86,12 +89,18 @@ func main() {
 		logger.Fatal("Failed compile SASS stylesheets: ", err)
 	}
 
+	logger.Println("Done...")
+
 }
 
 type bundler struct {
 	slateSource string
 	slateTarget string
-	logger      *log.Logger
+
+	// We do some mods to the Slate source (add some styles). Do that on a copy in here.
+	tmpSlateSource string
+
+	logger *log.Logger
 }
 
 func newBundler(slateSource, slateTarget string) *bundler {
@@ -113,12 +122,15 @@ func (b *bundler) init() error {
 func (b *bundler) fetchSlateIfNeeded() error {
 	if b.slateSource != "" {
 		b.logger.Println("Use existing Slate clone in", b.slateSource)
+		if err := b.copySlateSourcesToModify(); err != nil {
+			return err
+		}
 		return nil
 	}
 
 	b.logger.Println("Fetch Slate from", slateRepo)
 
-	slateSource, err := ioutil.TempDir("", "hugo-slate")
+	slateSource, err := ioutil.TempDir("", "docuapi")
 
 	if err != nil {
 		return fmt.Errorf("Failed to create tmpdir: %s", err)
@@ -129,6 +141,28 @@ func (b *bundler) fetchSlateIfNeeded() error {
 	}
 
 	b.slateSource = slateSource
+
+	// This will be replaced on next build, so it is tempoary enough.
+	b.tmpSlateSource = slateSource
+
+	return nil
+}
+
+func (b *bundler) copySlateSourcesToModify() error {
+	slateSource, err := ioutil.TempDir("", "docuapi")
+
+	if err != nil {
+		return fmt.Errorf("Failed to create tmpdir: %s", err)
+	}
+
+	// We need to adapt the SASS source ... or learn how to use includeDirs ...
+	if err := shutil.CopyTree(
+		filepath.Join(b.slateSource, "source", "stylesheets"),
+		filepath.Join(slateSource, "source", "stylesheets"), nil); err != nil {
+		return fmt.Errorf("Failed to copy stylesheets: %s", err)
+	}
+
+	b.tmpSlateSource = slateSource
 
 	return nil
 }
@@ -143,29 +177,58 @@ func (b *bundler) replaceSlateSourcesInTheme() error {
 	return nil
 }
 
-// TODO(bep) this should be handled by the SASS compiler
-func (b *bundler) fixFontPaths() error {
-	base := filepath.Join(b.slateSource, "source", "stylesheets")
-	for _, filename := range []string{"_icon-font.scss"} {
-		fp := filepath.Join(base, filename)
-		read, err := ioutil.ReadFile(fp)
-		if err != nil {
-			return err
-		}
-		nc := bytes.Replace(read, []byte("font-url('"), []byte("font-url('../fonts/"), -1)
+func (b *bundler) mergeAndAdjustStyles() error {
+	slateStylesheetsDir := filepath.Join(b.tmpSlateSource, "source", "stylesheets")
+	b.logger.Println("Compile SASS in", slateStylesheetsDir)
 
-		err = ioutil.WriteFile(fp, nc, os.ModePerm)
-		if err != nil {
-			return err
+	// TODO(bep) this should be handled by the SASS compiler
+	if err := replaceInFile(filepath.Join(slateStylesheetsDir, "_icon-font.scss"), "font-url('", "font-url('../fonts/"); err != nil {
+		return err
+	}
+
+	customImports := filepath.Join(b.slateTarget, "..", "..", "assets", "stylesheets")
+
+	// Copy custom SASS files into merged source. Should be able to do this by
+	// setting an includePath, but ...
+	fis, err := ioutil.ReadDir(customImports)
+
+	if err != nil {
+		return err
+	}
+
+	for _, fi := range fis {
+		if err := shutil.CopyFile(filepath.Join(customImports, fi.Name()), filepath.Join(slateStylesheetsDir, fi.Name()), false); err != nil {
+			return fmt.Errorf("failed to copy custom SASS: %s", err)
 		}
+	}
+
+	// Insert custom import
+	if err := replaceInFile(filepath.Join(slateStylesheetsDir, "screen.css.scss"),
+		"@import 'variables';\n@import 'icon-font';",
+		"@import 'variables';\n@import 'icon-font';\n@import 'docuapi';"); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func replaceInFile(filename, old, new string) error {
+	read, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+	nc := bytes.Replace(read, []byte(old), []byte(new), -1)
+
+	err = ioutil.WriteFile(filename, nc, os.ModePerm)
+	if err != nil {
+		return err
 	}
 	return nil
 }
 
 func (b *bundler) compileSassSources() error {
-	source := filepath.Join(b.slateSource, "source", "stylesheets")
+	source := filepath.Join(b.tmpSlateSource, "source", "stylesheets")
 	target := filepath.Join(b.slateTarget, "stylesheets")
-
 	os.MkdirAll(target, os.ModePerm)
 
 	fis, err := ioutil.ReadDir(source)
@@ -187,13 +250,16 @@ func (b *bundler) compileSassSources() error {
 			return err
 		}
 
-		comp, err := libsass.New(cssFile, nil, libsass.Path(filepath.Join(source, fi.Name())))
+		comp, err := libsass.New(cssFile, nil,
+			libsass.Path(filepath.Join(source, fi.Name())),
+		)
+
 		if err != nil {
 			return err
 		}
 
 		if err := comp.Run(); err != nil {
-			return err
+			return fmt.Errorf("SASS run failed: %s", err)
 		}
 
 	}
@@ -212,7 +278,7 @@ func (b *bundler) createJSBundles() error {
 func cloneSlateInto(dir string) error {
 	logger.Println("Clone Slate into", dir, "...")
 
-	cmd := exec.Command("git", "clone", slateRepo, dir)
+	cmd := exec.Command("git", "clone", "-b", "docuapi", slateRepo, dir)
 	return cmd.Run()
 }
 
