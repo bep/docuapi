@@ -23,6 +23,9 @@ toc_footers = [
   
 # Configure the language example tabs.
 [[params.language_tabs]]
+key = "go"
+name = "Go" 
+[[params.language_tabs]]
 key = "shell"
 name = "Shell" 
 [[params.language_tabs]]
@@ -31,3 +34,6 @@ name = "Ruby"
 [[params.language_tabs]]
 key = "python"
 name = "Python"
+[[params.language_tabs]]
+key = "javascript"
+name = "Javascript"

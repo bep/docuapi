@@ -15,6 +15,19 @@ This example API documentation page was created with [DocuAPI](https://github.co
 
 > To authorize, use this code:
 
+```go
+package main
+
+import "github.com/bep/kittn/auth"
+
+func main() {
+	api := auth.Authorize("meowmeowmeow")
+
+	// Just to make it compile
+	_ = api
+}
+```
+
 ```ruby
 require 'kittn'
 
@@ -54,6 +67,18 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 # Kittens
 
 ## Get All Kittens
+
+```go
+package main
+
+import "github.com/bep/kittn/auth"
+
+func main() {
+	api := auth.Authorize("meowmeowmeow")
+
+	_ = api.GetKittens()
+}
+```
 
 ```ruby
 require 'kittn'
@@ -120,6 +145,18 @@ Remember — a happy kitten is an authenticated kitten!
 </aside>
 
 ## Get a Specific Kitten
+
+```go
+package main
+
+import "github.com/bep/kittn/auth"
+
+func main() {
+	api := auth.Authorize("meowmeowmeow")
+
+	_ = api.GetKitten()
+}
+```
 
 ```ruby
 require 'kittn'
