@@ -19,6 +19,7 @@ under the License.
   'use strict';
 
   var languages = [];
+   
     
   global.setupLanguages = setupLanguages;
   global.activateLanguage = activateLanguage;
@@ -26,14 +27,15 @@ under the License.
   function activateLanguage(language) {
     if (!language) return;
     if (language === "") return;
-
     $(".lang-selector a").removeClass('active');
     $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
+    // Mod to match Pygments from Hugo: div.highlight > pre code.language-ruby
+    var codeSelectorPrefix = ".highlight code.language-";
     for (var i=0; i < languages.length; i++) {
-      $(".highlight." + languages[i]).hide();
+      $(codeSelectorPrefix + languages[i]).hide();
       $(".lang-specific." + languages[i]).hide();
     }
-    $(".highlight." + language).show();
+    $(codeSelectorPrefix + language).show();
     $(".lang-specific." + language).show();
 
     global.toc.calculateHeights();
