@@ -26,9 +26,9 @@ It depends on `libsass` to build, so you will need `gcc` (a C compiler) to build
 
 * `go get -u -v .`
 * `go run bundler.go` (this will clone Slate to a temp folder)
-* Alternative  to the above if you already have Slate cloned somewhere: `go run main.go -slate=/path/to/Slate`
+* Alternative  to the above if you already have Slate cloned somewhere: `go run bundler.go -slate=/path/to/Slate`
 
-With `make` available, you can get a fairly enjoyable live-reloading development experience for all artifacts by running:
+With `make` and `fswatch` (OSX only, I believe) available, you can get a fairly enjoyable live-reloading development experience for all artifacts by running:
 
 * `hugo server` in your Hugo site project.
 * `make serve` in the theme folder.
