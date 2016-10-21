@@ -181,11 +181,6 @@ func (b *bundler) mergeAndAdjustStyles() error {
 	slateStylesheetsDir := filepath.Join(b.tmpSlateSource, "source", "stylesheets")
 	b.logger.Println("Compile SASS in", slateStylesheetsDir)
 
-	// TODO(bep) this should be handled by the SASS compiler
-	if err := replaceInFile(filepath.Join(slateStylesheetsDir, "_icon-font.scss"), "font-url('", "font-url('../fonts/"); err != nil {
-		return err
-	}
-
 	customImports := filepath.Join(b.slateTarget, "..", "..", "assets", "stylesheets")
 
 	// Copy custom SASS files into merged source. Should be able to do this by

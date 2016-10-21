@@ -390,8 +390,8 @@ under the License.
 
 @font-face {
   font-family: 'slate';
-  src: font-url("../fonts/slate.eot?-syv14m");
-  src: font-url("../fonts/slate.eot?#iefix-syv14m") format("embedded-opentype"), font-url("../fonts/slate.woff2?-syv14m") format("woff2"), font-url("../fonts/slate.woff?-syv14m") format("woff"), font-url("../fonts/slate.ttf?-syv14m") format("truetype"), font-url("../fonts/slate.svg?-syv14m#slate") format("svg");
+  src: font-url("slate.eot?-syv14m");
+  src: font-url("slate.eot?#iefix-syv14m") format("embedded-opentype"), font-url("slate.woff2?-syv14m") format("woff2"), font-url("slate.woff?-syv14m") format("woff"), font-url("slate.ttf?-syv14m") format("truetype"), font-url("slate.svg?-syv14m#slate") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -424,6 +424,13 @@ under the License.
   padding: 10px 15px;
   color: #fff;
   font-size: 12px; }
+
+@font-face {
+  font-family: 'slate';
+  src: url(/fonts/slate.eot?-syv14m);
+  src: url(../fonts/slate.eot?#iefix-syv14m) format("embedded-opentype"), url(../fonts/slate.woff2?-syv14m) format("woff2"), url(../fonts/slate.woff?-syv14m) format("woff"), url(../fonts/slate.ttf?-syv14m) format("truetype"), url(../fonts/slate.svg?-syv14m#slate) format("svg");
+  font-weight: normal;
+  font-style: normal; }
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
