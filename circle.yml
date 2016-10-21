@@ -8,7 +8,11 @@ machine:
 dependencies:
   pre:
     - bash ./ci-install-hugo.sh
+  override:
+    # This isn't really a Go project, so put these in the override section to prevent expensive Go builds.
     - go get -v github.com/bep/s3deploy
+    - go build -h &> /dev/null & echo ""
+    - pip install -r requirements.txt
   cache_directories:
     - bin
 
