@@ -32,7 +32,7 @@
         {{ end }} 
         {{ if .Site.Params.search }}
         <div class="search">
-            <input type="text" class="search" id="input-search" placeholder="Search">
+            <input type="text" class="search" id="input-search" placeholder='{{ T "search" . }}'>
         </div>
         <ul class="search-results"></ul>
         {{ end }}
