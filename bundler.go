@@ -51,6 +51,7 @@ func main() {
 
 	var (
 		slateSourceDir = flag.String("slate", "", "the path to the Slate source, if not set it will be cloned from "+slateRepo)
+		minify         = flag.Bool("minify", true, "apply minification to output Javascript, CSS etc.")
 	)
 
 	flag.Parse()
@@ -63,7 +64,7 @@ func main() {
 
 	bundler := newBundler(
 		*slateSourceDir,
-		filepath.Join(pwd, "static", "slate"))
+		filepath.Join(pwd, "static", "slate"), *minify)
 
 	if err := bundler.init(); err != nil {
 		logger.Fatal(err)
@@ -97,14 +98,16 @@ type bundler struct {
 	slateSource string
 	slateTarget string
 
+	minify bool
+
 	// We do some mods to the Slate source (add some styles). Do that on a copy in here.
 	tmpSlateSource string
 
 	logger *log.Logger
 }
 
-func newBundler(slateSource, slateTarget string) *bundler {
-	return &bundler{slateSource: slateSource, slateTarget: slateTarget, logger: logger}
+func newBundler(slateSource, slateTarget string, minify bool) *bundler {
+	return &bundler{slateSource: slateSource, slateTarget: slateTarget, minify: minify, logger: logger}
 }
 
 func (b *bundler) init() error {
@@ -245,7 +248,14 @@ func (b *bundler) compileSassSources() error {
 			return err
 		}
 
+		outputStyle := libsass.NESTED_STYLE
+
+		if b.minify {
+			outputStyle = libsass.COMPRESSED_STYLE
+		}
+
 		comp, err := libsass.New(cssFile, nil,
+			libsass.OutputStyle(outputStyle),
 			libsass.Path(filepath.Join(source, fi.Name())),
 		)
 
