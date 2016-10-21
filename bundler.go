@@ -27,6 +27,9 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/js"
+
 	shutil "github.com/termie/go-shutil"
 	libsass "github.com/wellington/go-libsass"
 )
@@ -276,7 +279,7 @@ func (b *bundler) createJSBundles() error {
 	src := filepath.Join(b.slateSource, "source", "javascripts")
 	dst := filepath.Join(b.slateTarget, "javascripts")
 	overrides := filepath.Join(b.slateTarget, "..", "..", "assets", "javascripts")
-	jsB := newJSBundler(src, dst, overrides)
+	jsB := newJSBundler(src, dst, overrides, b.minify)
 	return jsB.bundle()
 }
 
@@ -291,6 +294,8 @@ type jsBundler struct {
 	src string
 	dst string
 
+	minify bool
+
 	overridesSrc string
 	overrides    map[string][]byte
 
@@ -301,8 +306,8 @@ type jsBundler struct {
 	buff bytes.Buffer
 }
 
-func newJSBundler(src, dst, overridesSrc string) *jsBundler {
-	return &jsBundler{src: src, dst: dst, overridesSrc: overridesSrc, logger: logger, overrides: make(map[string][]byte)}
+func newJSBundler(src, dst, overridesSrc string, minify bool) *jsBundler {
+	return &jsBundler{src: src, dst: dst, overridesSrc: overridesSrc, minify: minify, logger: logger, overrides: make(map[string][]byte)}
 }
 
 func (j *jsBundler) readOverrides() error {
@@ -352,7 +357,20 @@ func (j *jsBundler) bundle() error {
 			return err
 		}
 
-		if err = ioutil.WriteFile(filepath.Join(j.dst, fi.Name()), j.buff.Bytes(), os.ModePerm); err != nil {
+		var source bytes.Buffer
+
+		if j.minify {
+			j.logger.Println("Minify JS")
+			m := minify.New()
+			m.AddFunc("text/javascript", js.Minify)
+			if err := m.Minify("text/javascript", &source, &j.buff); err != nil {
+				return err
+			}
+		} else {
+			source = j.buff
+		}
+
+		if err = ioutil.WriteFile(filepath.Join(j.dst, fi.Name()), source.Bytes(), os.ModePerm); err != nil {
 			return fmt.Errorf("Failed to write to destination: %s", err)
 		}
 
