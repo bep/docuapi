@@ -9,7 +9,7 @@ Velkomen skal du vere til Kittn API! Du kan bruke vårt API til å kalle våre K
 
 Her finn du kodedøme i Shell, Ruby, Python og Go! Du ser desse døma i det mørke feltet til høgre på skjermen -- og du kan byta programmeringsspråk ved å klikke på menyen oppe til høgre.
 
-Denne API-dokumentasjonen vart laga med  [DocuAPI](https://github.com/bep/docuapi/),  eit tema for den statiske nettstadsmakaren [Hugo](http://gohugo.io/). 
+**Denne API-dokumentasjonen vart laga med  [DocuAPI](https://github.com/bep/docuapi/),  eit tema for den statiske nettstadsmakaren [Hugo](http://gohugo.io/).** 
 
 # Autentisering
 
