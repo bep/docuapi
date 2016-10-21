@@ -1,7 +1,7 @@
 theme = "docuapi"
 themesdir = "../.."
 languageCode = "en-us"
-baseurl = "http://example.org/"
+baseurl = "http://docuapi.com/"
 title = "DocuAPI Example Site"
 
 # Code higlighting settings
