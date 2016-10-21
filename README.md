@@ -36,6 +36,16 @@ It depends on `libsass` to build, so you will need `gcc` (a C compiler) to build
 * `go run bundler.go` (this will clone Slate to a temp folder)
 * Alternative  to the above if you already have Slate cloned somewhere: `go run bundler.go -slate=/path/to/Slate`
 
+All options:
+
+```bash
+go run bundler.go -h
+  -minify
+    	apply minification to output Javascript, CSS etc. (default true)
+  -slate string
+    	the path to the Slate source, if not set it will be cloned from https://github.com/lord/slate.git
+```
+
 With `make` and `fswatch` (OSX only, I believe) available, you can get a fairly enjoyable live-reloading development experience for all artifacts by running:
 
 * `hugo server` in your Hugo site project.
