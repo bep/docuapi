@@ -22,7 +22,7 @@ If you want a different page selection, please provide your own `layouts/index.h
 
 ## Hooks
 
-When the fix for [#2549](https://github.com/spf13/hugo/issues/2549) is released we may do this with hooks, but until then you can provide some custom partials:
+When the fix for [#2549](https://github.com/spf13/hugo/issues/2549) is released we may do this with blocks, but until then you can provide some custom partials:
 
 * `partials/hook_head_end.html` is inserted right before the `head` end tag. Useful for additional styles etc.
 * `partials/hook_body_end.html` which should be clear by its name.
