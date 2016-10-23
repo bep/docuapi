@@ -20,6 +20,18 @@ See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) an
 
 If you want a different page selection, please provide your own `layouts/index.html` template.
 
+## Hooks
+
+When the fix for [#2549](https://github.com/spf13/hugo/issues/2549) is released we may do this with hooks, but until then you can provide some custom partials:
+
+* `partials/hook_head_end.html` is inserted right before the `head` end tag. Useful for additional styles etc.
+* `partials/hook_body_end.html` which should be clear by its name.
+
+The styles and Javascript import are also put in each partial and as such can be overridden if really needed:
+
+* `partials/styles.html`
+* `partials/js.html`
+
 ## Develop the Theme
 
 **Note:** In most situations you will be well off just using the theme and maybe in some cases provide your own template(s). Please refer to the [Hugo Documentation](http://gohugo.io/overview/introduction/) for that.
