@@ -6,7 +6,7 @@
 
 <br/>
 
-![Build Status](https://circleci.com/gh/bep/docuapi.svg?style=shield&circle-token=:circle-ci-badge-token)
+[![CircleCI](https://circleci.com/gh/bep/docuapi.svg?style=svg)](https://circleci.com/gh/bep/docuapi)
 
 ![Screenshot DocuAPI Example site](https://raw.githubusercontent.com/bep/docuapi/master/images/screenshot.png)
 
