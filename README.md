@@ -2,7 +2,7 @@
 
 <br/>
 
-> Visit the [demo site](http://docuapi.com/).
+> Visit the [demo site](https://docuapi.com/).
 
 <br/>
 
