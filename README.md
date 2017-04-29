@@ -26,6 +26,9 @@ When the fix for [#2549](https://github.com/spf13/hugo/issues/2549) is released 
 
 * `partials/hook_head_end.html` is inserted right before the `head` end tag. Useful for additional styles etc.
 * `partials/hook_body_end.html` which should be clear by its name.
+* `partials/hook_left_sidebar_start.html` the start of the left sidebar
+* `partials/hook_left_sidebar_end.html` the end of the left sidebar
+* `partials/hook_left_sidebar_logo.html` the log `img` source
 
 The styles and Javascript import are also put in each partial and as such can be overridden if really needed:
 
