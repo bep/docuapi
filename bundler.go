@@ -286,7 +286,7 @@ func (b *bundler) createJSBundles() error {
 func cloneSlateInto(dir string) error {
 	logger.Println("Clone Slate into", dir, "...")
 
-	cmd := exec.Command("git", "clone", "-b", "docuapi", slateRepo, dir)
+	cmd := exec.Command("git", "clone", slateRepo, dir)
 	return cmd.Run()
 }
 
