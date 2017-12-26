@@ -12,8 +12,6 @@
 
 See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) and more specific its site [configuration](https://github.com/bep/docuapi/blob/master/exampleSite/config.toml) for the available options.
 
-**Note that this theme needs Pygments installed to render code samples. See [pygments.org](http://pygments.org/)**
-
 **Most notable:** This theme will use all the (non drafts) pages in the site and build a single-page API documentation. Using `weight` in the page front matter is the easiest way to control page order.
 
 If you want a different page selection, please provide your own `layouts/index.html` template.
