@@ -16,7 +16,7 @@
         <img src='{{ relURL "slate/images/navbar.png" }}'/>
       </span>
     </a>
-    <div class="tocify-wrapper">
+    <div class="toc-wrapper">
         {{ partial "hook_left_sidebar_start.html" . }}
         {{ partial "hook_left_sidebar_logo.html" . }}
         {{ with .Site.Params.language_tabs }}
@@ -32,7 +32,8 @@
         </div>
         <ul class="search-results"></ul>
         {{ end }}
-        <div id="toc">
+        <div id="toc" class="toc-list-h1">
+            TOC: {{ .TableOfContents }}
         </div>
         {{ if .IsTranslated }}
         <div class="toc-footer">

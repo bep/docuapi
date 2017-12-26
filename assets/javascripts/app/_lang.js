@@ -15,22 +15,24 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 */
-(function (global) {
+;(function () {
   'use strict';
 
   var languages = [];
-   
-    
-  global.setupLanguages = setupLanguages;
-  global.activateLanguage = activateLanguage;
+
+  window.setupLanguages = setupLanguages;
+  window.activateLanguage = activateLanguage;
+  window.getLanguageFromQueryString = getLanguageFromQueryString;
 
   function activateLanguage(language) {
     if (!language) return;
     if (language === "") return;
+
     $(".lang-selector a").removeClass('active');
     $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
-    // Mod to match Pygments from Hugo: div.highlight > pre code.language-ruby
+       // Mod to match Pygments from Hugo: div.highlight > pre code.language-ruby
     var codeSelectorPrefix = ".highlight code.language-";
+
     for (var i=0; i < languages.length; i++) {
       $(codeSelectorPrefix + languages[i]).parentsUntil(".highlight").hide();
       $(".lang-specific." + languages[i]).hide();
@@ -38,7 +40,7 @@ under the License.
     $(codeSelectorPrefix + language).parentsUntil(".highlight").show();
     $(".lang-specific." + language).parentsUntil(".highlight").show();
 
-    global.toc.calculateHeights();
+    window.recacheHeights();
 
     // scroll to the new location of the position
     if ($(window.location.hash).get(0)) {
@@ -99,7 +101,7 @@ under the License.
   // gets the language set in the query string
   function getLanguageFromQueryString() {
     if (location.search.length >= 1) {
-      var language = parseURL(location.search).language
+      var language = parseURL(location.search).language;
       if (language) {
         return language;
       } else if (jQuery.inArray(location.search.substr(1), languages) != -1) {
@@ -161,8 +163,5 @@ under the License.
       activateLanguage(language);
       return false;
     });
-    window.onpopstate = function() {
-      activateLanguage(getLanguageFromQueryString());
-    };
   });
-})(window);
+})();
