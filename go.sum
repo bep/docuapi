@@ -1,0 +1,5 @@
+github.com/bep/hugotestmods v0.0.0-20190604083900-a4c456c8a91c h1:92Ol/PBxFNz6nypoXm73BPRdM1ZnggGw0nrG8jf6i+k=
+github.com/bep/hugotestmods/mymounts v1.2.0 h1:1Li0CppU5rsmxTDpFLxMOeOypOsCt0TO7/ELxJ5sfIQ=
+github.com/bep/hugotestmods/mymounts v1.2.0/go.mod h1:eEF3JU4Kta3g3O2mxuHs4fVq0qMuJoOrr0OCADn1Lm4=
+github.com/lord/slate v2.3.1+incompatible h1:uRy5iSKUWJdeozlS9RVWbeC1ZRyySLOCn20ve6iYw6A=
+github.com/lord/slate v2.3.1+incompatible/go.mod h1:ujwDH+XJN1hPpN4JfN8Cp65e5jk3DGf+Jz0/nbJxoUM=
