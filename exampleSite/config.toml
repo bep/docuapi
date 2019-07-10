@@ -4,13 +4,14 @@ languageCode = "en-us"
 baseurl = "https://docuapi.netlify.com/"
 title = "DocuAPI Example Site"
 
+disableKinds = ["page", "taxonomyTerm"]
+
 # Code higlighting settings
 pygmentsCodefences = true
 pygmentsCodeFencesGuesSsyntax = false
 pygmentsOptions = ""
 pygmentsStyle = "monokai"
-# The monokai stylesheet is included in the base template.
-pygmentsUseClasses = true
+pygmentsUseClasses = false
 
 defaultContentLanguage = "en"
 

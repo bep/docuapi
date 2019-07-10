@@ -1,0 +1,17 @@
+
+baseURL = "https://example.com/"
+
+disableKinds = ["taxonomyTerm"]
+
+[module]
+[[module.imports]]
+path="github.com/lord/slate"
+[[module.imports.mounts]]
+source="source/images"
+target="static/images"
+[[module.imports.mounts]]
+source="source/fonts"
+target="static/fonts"
+[[module.imports.mounts]]
+source="source/stylesheets"
+target="assets/scss/slate"
