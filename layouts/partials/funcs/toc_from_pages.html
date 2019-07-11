@@ -1,0 +1,12 @@
+{{ $toc := slice }}
+{{ range . }}
+{{ $headers := findRE "<h\\d.*?>(.|\n)*?</h\\d>" .Content }}
+{{ range $headers }}
+{{ $level :=  int (substr . 2 1) }}
+{{ if le $level 2 }}
+{{ $header := . | replaceRE "</?h\\d.*?>" "" | htmlUnescape | safeHTML }}
+{{ $toc = $toc | append (dict "level" $level "title" $header ) }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ return $toc }}
