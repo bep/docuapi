@@ -15,3 +15,6 @@ target="static/fonts"
 [[module.imports.mounts]]
 source="source/stylesheets"
 target="assets/scss/slate"
+[[module.imports.mounts]]
+source="source/javascripts"
+target="assets/js/slate"
