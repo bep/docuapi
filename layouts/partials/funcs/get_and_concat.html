@@ -1,0 +1,10 @@
+{{ if not .target  }}{{ errorf "Missing target"}}{{ end }}
+{{ if not .imports  }}{{ errorf "Missing imports"}}{{ end }}
+{{ $resources := slice }}
+{{ range .imports }}
+{{ $resource := resources.Get . }}
+{{ if $resource }}
+{{ $resources = $resources | append $resource }}
+{{ end }}
+{{ end }}
+{{ return ($resources | resources.Concat .target) }}
