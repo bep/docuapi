@@ -1,8 +1,6 @@
 
 baseURL = "https://example.com/"
 
-disableKinds = ["taxonomyTerm"]
-
 [module]
 [[module.imports]]
 path="github.com/lord/slate"

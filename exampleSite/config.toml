@@ -4,7 +4,7 @@ languageCode = "en-us"
 baseurl = "https://docuapi.netlify.com/"
 title = "DocuAPI Example Site"
 
-disableKinds = ["page", "taxonomyTerm"]
+disableKinds = ["taxonomyTerm"]
 
 # Code higlighting settings
 pygmentsCodefences = true
