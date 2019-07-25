@@ -12,7 +12,10 @@
 
 ## Use
 
-**Note:** this theme requires Hugo >= 0.56.0 to run. If you want to edit the SCSS styles, you need the extended version.
+**Note:** this theme requires Hugo >= 0.56.0 to run. If you want to edit the SCSS styles, you need:
+
+* The extended Hugo version.
+* PostCSS CLI: npm install -g postcss-cli (TODO(bep) add a package.json)
 
 See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) and more specific its site [configuration](https://github.com/bep/docuapi/blob/master/exampleSite/config.toml) for the available options.
 
