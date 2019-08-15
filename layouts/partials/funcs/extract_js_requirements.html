@@ -4,7 +4,7 @@
 {{ range $req }}
     {{ $imp := strings.TrimPrefix "//= require" . }}
     {{ $imp = trim $imp " " }}
-    {{ $imp = printf "%s.js" (path.Join $dir $imp) }}
+    {{ $imp = printf "/%s.js" (path.Join $dir $imp) }}
     {{ if not ($.visited.Get $imp) }}
         {{ $.visited.Set $imp true }}
         {{ $nested := resources.Get $imp }}

@@ -8,7 +8,16 @@
     <ul id="toc" class="toc-list-h1">
         {{ $headers := partial "funcs/toc_from_pages" .Site.RegularPages }}
         {{ range $headers }}
-        <a href="#{{ .title | anchorize }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a>
-        {{ end }}
+            <li>
+                <a href="#{{ .title | anchorize }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a>
+                {{if .sub }}
+                    <ul class="toc-list-h2">
+                        {{range .sub}}
+                            <li><a href="#{{ .title | anchorize }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a></li>
+                        {{end}}
+                    </ul>
+                {{end}}
+            </li>
+        {{end}}
     </ul>
 {{ end }}
