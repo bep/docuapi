@@ -1,5 +1,5 @@
 {{ $req := findRE "//= require (\\S*)" .resource.Content }}
-{{ $dir := path.Dir .resource.RelPermalink }}
+{{ $dir := path.Dir .resource.Name }}
 {{ $imports := slice }}
 {{ range $req }}
     {{ $imp := strings.TrimPrefix "//= require" . }}
