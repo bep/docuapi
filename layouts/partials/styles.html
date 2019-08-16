@@ -1,7 +1,7 @@
 {{ $isDev := ne hugo.Environment "production" }}
 {{ $cssOpts := (dict "targetPath" "styles/screen.css" "enableSourceMap" $isDev ) }}
 {{ $screenCSS := resources.Get "scss/slate/screen.css.scss" | toCSS $cssOpts }}
-{{ $cssOpts := (dict "targetPath" "styles/print.css" "enableSourceMap" $isDev ) }}
+{{ $cssOpts = (dict "targetPath" "styles/print.css" "enableSourceMap" $isDev ) }}
 {{ $printCSS := resources.Get "scss/slate/print.css.scss" | toCSS $cssOpts  }}
 {{ if not $isDev }}
 {{ $printCSS = $printCSS |  postCSS | minify | fingerprint }}
