@@ -15,6 +15,12 @@ pygmentsUseClasses = false
 
 defaultContentLanguage = "en"
 
+[module]
+[module.hugoVersion]
+[[module.imports]]
+# We include the theme by "../.." above, but we need one module import for Hugo to detect us as a Hugo Module.
+path="github.com/bep/empty-hugo-module"
+
 [params]
 search = true
   
