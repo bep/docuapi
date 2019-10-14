@@ -13,5 +13,5 @@ min_version = 0.17
 
 [original]
   name = "Slate"
-  homepage = "https://github.com/lord/slate"
-  repo = "https://github.com/lord/slate"
+  homepage = "https://github.com/slatedocs/slate"
+  repo = "https://github.com/slatedocs/slate"

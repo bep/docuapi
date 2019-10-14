@@ -1,6 +1,6 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/49111249-0a1a-4b5a-a3ab-45d00732fdb3/deploy-status)](https://app.netlify.com/sites/docuapi/deploys)
 
-**DocuAPI** is a beautiful multilingual API documentation theme for [Hugo](http://gohugo.io/). This theme is built on top of the beautiful work of [Robert Lord](https://github.com/lord) and others on the [Slate](https://github.com/lord/slate) project ([Apache 2 License](https://github.com/lord/slate/blob/master/LICENSE)).
+**DocuAPI** is a beautiful multilingual API documentation theme for [Hugo](http://gohugo.io/). This theme is built on top of the beautiful work of [Robert Lord](https://github.com/lord) and others on the [Slate](https://github.com/slatedocs/slate) project ([Apache 2 License](https://github.com/slatedocs/slate/blob/master/LICENSE)).
 
 <br/>
 
@@ -39,8 +39,3 @@ The styles and Javascript import are also put in each partial and as such can be
 
 * `partials/styles.html`
 * `partials/js.html`
-
-
-
-
-
