@@ -1,0 +1,8 @@
+- id: translations
+  translation: 
+    one: "Translation"
+    other: "ترجمة"
+
+# Search label
+- id: search
+  translation: "بحث"
