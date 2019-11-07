@@ -1,32 +1,35 @@
-{{ $toc := slice }}
+{{ $combined := slice }}
 {{ range . }}
-    {{ $previousH1 := dict}}
-    {{ $previousLevel := 0 }}
-    {{ $h2s := slice }}
-
     {{ $headers := findRE "<h\\d.*?>(.|\n)*?</h\\d>" .Content }}
-    {{ range $headers }}
-        {{ $level := int (substr . 2 1) }}
-        {{ if le $level 2 }}
-            {{ $title := . | replaceRE "</?h\\d.*?>" "" | htmlUnescape | safeHTML }}
-            {{ $item := dict "level" $level "title" $title }}
+    {{ $combined = $combined | append $headers }}
+{{ end }}
 
-            {{if eq $level 1 }}
-                {{if ne $previousLevel 0 }}
-                    {{ $tocItem := merge $previousH1 (dict "sub" $h2s)}}
-                    {{ $toc = $toc | append $tocItem }}
-                    {{ $h2s = slice }}
-                {{end}}
-                {{ $previousH1 = $item }}
-            {{else}}
-                {{ $h2s = $h2s | append $item}}
+{{ $toc := slice }}
+{{ $previousH1 := dict }}
+{{ $previousLevel := 0 }}
+{{ $h2s := slice }}
+
+{{ range $combined }}
+    {{ $level := int (substr . 2 1) }}
+    {{ if le $level 2 }}
+        {{ $title := . | replaceRE "</?h\\d.*?>" "" | htmlUnescape | safeHTML }}
+        {{ $item := dict "level" $level "title" $title }}
+
+        {{ if eq $level 1 }}
+            {{ if ne $previousLevel 0 }}
+                {{ $tocItem := merge $previousH1 (dict "sub" $h2s) }}
+                {{ $toc = $toc | append $tocItem }}
+                {{ $h2s = slice }}
             {{end}}
-            {{ $previousLevel = $level }}
+            {{ $previousH1 = $item }}
+        {{ else }}
+            {{ $h2s = $h2s | append $item }}
         {{ end }}
+        {{ $previousLevel = $level }}
     {{ end }}
-    {{if ne $previousLevel 0}}
-        {{ $item := merge $previousH1 (dict "sub" $h2s)}}
-        {{ $toc = $toc | append $item }}
-    {{end}}
+{{ end }}
+{{ if ne $previousLevel 0 }}
+    {{ $item := merge $previousH1 (dict "sub" $h2s) }}
+    {{ $toc = $toc | append $item }}
 {{ end }}
 {{ return $toc }}
