@@ -2,10 +2,6 @@
   "name": "docuapi",
   "version": "1.4.0",
   "description": "Beautiful multilingual API documentation theme for Hugo",
-  "main": ".",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bep/docuapi.git"
@@ -15,6 +11,9 @@
     "go",
     "template"
   ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
   "author": "bep",
   "license": "Apache-2.0",
   "bugs": {
