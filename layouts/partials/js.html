@@ -1,11 +1,16 @@
+{{ $isDev := ne hugo.Environment "production" }}
 {{ $allJS := resources.Get "js/slate/all.js" }}
 {{ $allNoSearchJS := resources.Get "js/slate/all_nosearch.js" }}
 {{ $importsAll := partial "funcs/extract_js_requirements.html" (dict "resource" $allJS "visited" newScratch )  | uniq }}
 {{ $importsAllNoSearch := partial "funcs/extract_js_requirements.html"  (dict "resource" $allNoSearchJS "visited" newScratch )  | uniq }}
 {{ $jsAll := partialCached "funcs/get_and_concat.html" (dict "imports" $importsAll "target" "js/all.js" ) "all" }}
 {{ $jsAllNoSearch := partialCached "funcs/get_and_concat.html" (dict "imports" $importsAllNoSearch "target" "js/all_nosearch.js" ) "no search"}}
+{{ if not $isDev }}
+{{ $jsAll = $jsAll | minify | fingerprint }}
+{{ $jsAllNoSearch = $jsAllNoSearch | minify | fingerprint }}
+{{ end  }}
 {{ if .Param "search" }}
-<script src='{{ $jsAll.RelPermalink }}'></script>
+<script src='{{ $jsAll.RelPermalink }}'{{ if not $isDev }} integrity="{{ $jsAll.Data.Integrity }}"{{ end }}></script>
 {{ else }}
-<script src='{{ $jsAllNoSearch.RelPermalink }}'></script>
+<script src='{{ $jsAllNoSearch.RelPermalink }}'{{ if not $isDev }} integrity="{{ $jsAllNoSearch.Data.Integrity }}"{{ end }}></script>
 {{ end }}
