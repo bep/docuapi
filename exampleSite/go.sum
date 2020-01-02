@@ -1,3 +1,5 @@
 github.com/bep/empty-hugo-module v1.0.0 h1:aYc9RWea644CdYjg9zCy8nkVF4KjC3fwhUTvvcXXg8s=
 github.com/bep/empty-hugo-module v1.0.0/go.mod h1:whohinbSjMoFi/Skivj9kvdPs1tEgzYpZ4rXoQk/0/I=
+github.com/jquery/jquery-dist v0.0.0-20191202185020-55b7d19f7bf1 h1:5J/Uu1ow4Ldq50ZaN8fq9qkqDq6UJdjSoHy6oVBBSR4=
+github.com/jquery/jquery-dist v0.0.0-20191202185020-55b7d19f7bf1/go.mod h1:/lTfttEqFU0GWTaOOMIeNTzLGQ7yTIgyzjtkS/pYIoc=
 github.com/slatedocs/slate v2.3.1+incompatible/go.mod h1:n698aXLkExWIlF7prJey0Kq6wlKIKvj/stVb5oouZDM=
