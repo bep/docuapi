@@ -10,6 +10,11 @@ path="github.com/jquery/jquery-dist"
 source="dist/jquery.js"
 target="assets/js/slate/lib/_jquery.js"
 [[module.imports]]
+path="github.com/olivernn/lunr.js"
+[[module.imports.mounts]]
+source="lunr.js"
+target="assets/js/slate/lib/_lunr.js"
+[[module.imports]]
 path="github.com/slatedocs/slate"
 [[module.imports.mounts]]
 source="source/images"
