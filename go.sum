@@ -1,3 +1,5 @@
+github.com/jquery/jquery-dist v0.0.0-20190501211928-15bc73803f76 h1:j+Kzn/FdSZMPCfz6nZAJUU2+DBH0LPZU/Cmq3ZhBoRA=
+github.com/jquery/jquery-dist v0.0.0-20190501211928-15bc73803f76/go.mod h1:/lTfttEqFU0GWTaOOMIeNTzLGQ7yTIgyzjtkS/pYIoc=
 github.com/jquery/jquery-dist v0.0.0-20191202185020-55b7d19f7bf1 h1:5J/Uu1ow4Ldq50ZaN8fq9qkqDq6UJdjSoHy6oVBBSR4=
 github.com/jquery/jquery-dist v0.0.0-20191202185020-55b7d19f7bf1/go.mod h1:/lTfttEqFU0GWTaOOMIeNTzLGQ7yTIgyzjtkS/pYIoc=
 github.com/olivernn/lunr.js v2.3.8+incompatible h1:t9qfO9qpBCSEhjnvTHQtfOA8Ggwnvn5Y1JWFalyoPl0=
