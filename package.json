@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/bep/docuapi#readme",
   "devDependencies": {
+    "autoprefixer": "^9.7.3",
     "postcss-cli": "^6.1.3"
   }
 }
