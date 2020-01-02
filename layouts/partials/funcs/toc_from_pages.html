@@ -12,9 +12,8 @@
 {{ range $combined }}
     {{ $level := int (substr . 2 1) }}
     {{ if le $level 2 }}
-        {{ $title := . | replaceRE "</?h\\d.*?>" "" | htmlUnescape | safeHTML }}
-        {{ $item := dict "level" $level "title" $title }}
-
+        {{ $idTitle := split (. | replaceRE "<h\\d id=\"(.*?)\">(.*)</h\\d>" "$1|$2") "|" }} 
+        {{ $item := dict "level" $level "id" (index $idTitle 0) "title" (index $idTitle 1) }}
         {{ if eq $level 1 }}
             {{ if ne $previousLevel 0 }}
                 {{ $tocItem := merge $previousH1 (dict "sub" $h2s) }}
