@@ -12,7 +12,8 @@
     "template"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=8.9.0",
+    "npm": ">6"
   },
   "author": "bep",
   "license": "Apache-2.0",
