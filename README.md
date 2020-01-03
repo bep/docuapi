@@ -27,7 +27,7 @@ You can customize the look-and-feel by adding your own CSS variables in `assets/
 
 ## Hooks
 
-When the fix for [#2549](https://github.com/spf13/hugo/issues/2549) is released we may do this with blocks, but until then you can provide some custom partials:
+You can override the layouts by providing some custom partials:
 
 * `partials/hook_head_end.html` is inserted right before the `head` end tag. Useful for additional styles etc.
 * `partials/hook_body_end.html` which should be clear by its name.
