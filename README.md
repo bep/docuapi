@@ -12,6 +12,15 @@
 
 ## Use
 
+The client library used to build the ToC does not handle Unicode very well. To get around this in Hugo >= 0.62.2, put this in your site config:
+
+```toml
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      autoHeadingIDType = "github-ascii"
+```
+
 **Note:** this theme requires Hugo >= 0.56.0 to run. If you want to edit the SCSS styles, you need:
 
 * The extended Hugo version.
