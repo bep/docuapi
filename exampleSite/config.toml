@@ -15,6 +15,11 @@ pygmentsUseClasses = false
 
 defaultContentLanguage = "en"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      autoHeadingIDType = "github-ascii"
+
 [module]
 [module.hugoVersion]
 [[module.imports]]
