@@ -36,7 +36,7 @@ under the License.
       $(codeSelectorPrefix + languages[i]).parentsUntil(".highlight").hide();
       $(".lang-specific." + languages[i]).hide();
     }
-    var languagesToKeep = JSON.parse(document.activeElement.getAttribute('data-with' + language));
+    var languagesToKeep = $( "body").data('with' + language);
     for (var i=0; i < languagesToKeep.length; i++) {
       $(codeSelectorPrefix + languagesToKeep[i]).parentsUntil(".highlight").show();
       $(".lang-specific." + languagesToKeep[i]).parentsUntil(".highlight").show();
