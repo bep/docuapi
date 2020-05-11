@@ -45,6 +45,7 @@ name = "Python"
 [[params.language_tabs]]
 key = "javascript"
 name = "Javascript"
+otherlangs = "java"
 
 #Languages 
 [languages]

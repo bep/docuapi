@@ -38,6 +38,15 @@ curl "http://example.com/api/kittens"
   -H "Authorization: meowmeowmeow"
 ```
 
+```java
+public class MyClass {
+  public static void main(String[] args) {
+    System.out.println("Hello World");
+  }
+}
+
+```
+
 ```javascript
 const kittn = require('kittn');
 
