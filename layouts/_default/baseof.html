@@ -9,7 +9,7 @@
     {{ partial "js.html" . }}
     {{ partial "hook_head_end.html" . }}
 </head>
-<body class="index" data-languages='[{{ partial "site_languages.html" . }}]' {{ with .Site.Params.language_tabs  }}{{ range $i,$e := . }} data-with{{ $e.name }}='[{{ printf " %q " $e.key }}{{ if isset $e "otherlangs" }}{{ range $e.otherlangs }}, {{ printf " %q " . }}{{ end }}{{ end }}]'{{ end }}{{ end }}>
+<body class="index" data-languages='[{{ partial "site_languages.html" . }}]' {{ with .Site.Params.language_tabs  }}{{ range $i,$e := . }} data-with{{ $e.key }}='[{{ printf " %q " $e.key }}{{ if isset $e "otherlangs" }}{{ range $e.otherlangs }}, {{ printf " %q " . }}{{ end }}{{ end }}]'{{ end }}{{ end }}>
     <a href="#" id="nav-button">
         <span>
         NAV
