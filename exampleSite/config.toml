@@ -28,6 +28,7 @@ path="github.com/bep/empty-hugo-module"
 
 [params]
 search = true
+custom_css = ["css/custom.css"]
   
 # Configure the language example tabs.
 [[params.language_tabs]]
@@ -42,10 +43,11 @@ name = "Ruby"
 [[params.language_tabs]]
 key = "python"
 name = "Python"
+otherlangs = ["xml", "r"]
 [[params.language_tabs]]
 key = "javascript"
 name = "Javascript"
-otherlangs = "java"
+otherlangs = ["java"]
 
 #Languages 
 [languages]

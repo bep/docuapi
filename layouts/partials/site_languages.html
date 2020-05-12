@@ -4,7 +4,9 @@
   {{ range $i,$e := . }}
      {{ $scratch.SetInMap "languages" $e.key ( printf " %q " $e.key ) }}
      {{ if isset $e "otherlangs" }}
-       {{ $scratch.SetInMap "languages" $e.otherlangs ( printf " %q " $e.otherlangs ) }}
+       {{ range $e.otherlangs }}
+         {{ $scratch.SetInMap "languages" . ( printf " %q " . ) }}
+       {{ end }}
      {{ end }}
   {{ end }}
   {{ $string = (delimit ($scratch.Get "languages") ", "  )}}

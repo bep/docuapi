@@ -33,6 +33,18 @@ api = kittn.authorize('meowmeowmeow')
 api.kittens.get()
 ```
 
+```xml
+<example>
+blablabla
+</example>
+```
+
+```r
+library("kitten")
+kt_authorize()
+kt_get()
+```
+
 ```shell
 curl "http://example.com/api/kittens"
   -H "Authorization: meowmeowmeow"
