@@ -11,6 +11,6 @@
 <link href='{{ $printCSS.RelPermalink }}' rel="stylesheet" media="print" {{ if not $isDev }}integrity="{{ $printCSS.Data.Integrity }}"{{ end }} />
 {{ with .Site.Params.custom_css }}
     {{ range . }}
-        <link rel="stylesheet" href="{{ $.Site.BaseURL }}{{ . }}">
+        <link rel="stylesheet" href="{{ .  | absURL }}">
     {{ end }}
   {{ end }}
