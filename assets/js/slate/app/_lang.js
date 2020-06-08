@@ -37,7 +37,7 @@ under the License.
       $(".lang-specific." + languages[i]).hide();
     }
     $(codeSelectorPrefix + language).parentsUntil(".highlight").show();
-    $(".lang-specific." + language).parentsUntil(".highlight").show();
+    $(".lang-specific." + language).show();
 
     // scroll to the new location of the position
     if ($(window.location.hash).get(0)) {
