@@ -7,6 +7,14 @@
   }
 }
 
+// prevent clearing of lang-specific divs
+div.lang-specific {
+  clear:none !important;
+}
+div.lang-specific:after {
+  clear:none;
+}
+
 // BACKGROUND COLORS
 ////////////////////
 $nav-bg: #2E3336 !default;
