@@ -19,6 +19,8 @@ defaultContentLanguage = "en"
   [markup.goldmark]
     [markup.goldmark.parser]
       autoHeadingIDType = "github-ascii"
+    [markup.goldmark.renderer]
+        unsafe = true
 
 [module]
 [module.hugoVersion]
