@@ -6,7 +6,10 @@
 
 {{ define "toc" }}
     <ul id="toc" class="toc-list-h1">
-        {{ $headers := partial "funcs/toc_from_pages" .Site.RegularPages }}
+        {{ $headers := slice }}
+        {{ with .Site.RegularPages  }}
+            {{ $headers = partial "funcs/toc_from_pages" . }}
+        {{ end }}
         {{ range $headers }}
             <li>
                 <a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a>
