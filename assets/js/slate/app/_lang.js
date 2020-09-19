@@ -36,8 +36,11 @@ under the License.
       $(codeSelectorPrefix + languages[i]).parentsUntil(".highlight").hide();
       $(".lang-specific." + languages[i]).hide();
     }
-    $(codeSelectorPrefix + language).parentsUntil(".highlight").show();
-    $(".lang-specific." + language).parentsUntil(".highlight").show();
+    var languagesToKeep = $( "body").data('with' + language);
+    for (var i=0; i < languagesToKeep.length; i++) {
+      $(codeSelectorPrefix + languagesToKeep[i]).parentsUntil(".highlight").show();
+      $(".lang-specific." + languagesToKeep[i]).parentsUntil(".highlight").show();
+    }
 
     // scroll to the new location of the position
     if ($(window.location.hash).get(0)) {
