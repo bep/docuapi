@@ -5,30 +5,53 @@
 {{ end }}
 
 {{ $toc := slice }}
-{{ $previousH1 := dict }}
+
+{{ $previousH1 := dict}}
+{{ $previousH2 := dict}}
 {{ $previousLevel := 0 }}
+
 {{ $h2s := slice }}
+{{ $h3s := slice }}
 
 {{ range $combined }}
     {{ $level := int (substr . 2 1) }}
-    {{ if le $level 2 }}
+    {{ if le $level 3 }}
         {{ $idTitle := split (. | replaceRE "<h\\d id=\"(.*?)\">(.*)</h\\d>" "$1|$2") "|" }} 
         {{ $item := dict "level" $level "id" (index $idTitle 0) "title" (index $idTitle 1) }}
+
         {{ if eq $level 1 }}
             {{ if ne $previousLevel 0 }}
+                {{ if or (eq $previousLevel 2) (eq $previousLevel 3) }}
+                    {{ $tocItem := merge $previousH2 (dict "sub" $h3s) }}
+                    {{ $h2s = $h2s | append $tocItem }}
+                    {{ $h3s = slice }}
+                {{ end }}
+
                 {{ $tocItem := merge $previousH1 (dict "sub" $h2s) }}
                 {{ $toc = $toc | append $tocItem }}
                 {{ $h2s = slice }}
-            {{end}}
+                {{ $previousH2 = slice }}
+            {{ end }}
             {{ $previousH1 = $item }}
         {{ else }}
-            {{ $h2s = $h2s | append $item }}
+            {{ if eq $level 2 }}
+                {{ if and (ne $previousLevel 1) (ne $previousLevel 2) }}
+                    {{ $tocItem := merge $previousH2 (dict "sub" $h3s) }}
+                    {{ $h2s = $h2s | append $tocItem }}
+                    {{ $h3s = slice }}
+                {{ end }}
+                {{ $previousH2 = $item }}
+            {{ else }}
+                {{ $h3s = $h3s | append $item }}
+            {{ end }}
         {{ end }}
         {{ $previousLevel = $level }}
     {{ end }}
 {{ end }}
+
 {{ if ne $previousLevel 0 }}
     {{ $item := merge $previousH1 (dict "sub" $h2s) }}
     {{ $toc = $toc | append $item }}
 {{ end }}
+
 {{ return $toc }}

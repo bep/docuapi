@@ -30,6 +30,7 @@ path="github.com/bep/empty-hugo-module"
 
 [params]
 search = true
+maxMenuDepth = 3 # (optional) available options are: 1, 2, or 3 (default: 2)
   
 # Configure the language example tabs.
 [[params.language_tabs]]
