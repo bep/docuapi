@@ -1,9 +1,8 @@
 github.com/bep/empty-hugo-module v1.0.0 h1:aYc9RWea644CdYjg9zCy8nkVF4KjC3fwhUTvvcXXg8s=
 github.com/bep/empty-hugo-module v1.0.0/go.mod h1:whohinbSjMoFi/Skivj9kvdPs1tEgzYpZ4rXoQk/0/I=
-github.com/jquery/jquery-dist v0.0.0-20190501211928-15bc73803f76 h1:j+Kzn/FdSZMPCfz6nZAJUU2+DBH0LPZU/Cmq3ZhBoRA=
-github.com/jquery/jquery-dist v0.0.0-20190501211928-15bc73803f76/go.mod h1:/lTfttEqFU0GWTaOOMIeNTzLGQ7yTIgyzjtkS/pYIoc=
-github.com/jquery/jquery-dist v0.0.0-20191202185020-55b7d19f7bf1 h1:5J/Uu1ow4Ldq50ZaN8fq9qkqDq6UJdjSoHy6oVBBSR4=
-github.com/jquery/jquery-dist v0.0.0-20191202185020-55b7d19f7bf1/go.mod h1:/lTfttEqFU0GWTaOOMIeNTzLGQ7yTIgyzjtkS/pYIoc=
-github.com/olivernn/lunr.js v2.3.8+incompatible h1:t9qfO9qpBCSEhjnvTHQtfOA8Ggwnvn5Y1JWFalyoPl0=
-github.com/olivernn/lunr.js v2.3.8+incompatible/go.mod h1:yEkQ1DUSMtNsn8n2CqvQXZd0ErWPEG8g9QRmblR+KS8=
-github.com/slatedocs/slate v2.3.1+incompatible/go.mod h1:n698aXLkExWIlF7prJey0Kq6wlKIKvj/stVb5oouZDM=
+github.com/jquery/jquery-dist v0.0.0-20210302171154-e786e3d9707f h1:VrcFwwDo/nKErNIKmp//iOGu7DlRkBTeW//hN7tl7SU=
+github.com/jquery/jquery-dist v0.0.0-20210302171154-e786e3d9707f/go.mod h1:/lTfttEqFU0GWTaOOMIeNTzLGQ7yTIgyzjtkS/pYIoc=
+github.com/olivernn/lunr.js v2.3.9+incompatible h1:eH8iBnjlR4mwlYDdNuqy9PCNLjp2bEs6aoNnTSaccx0=
+github.com/olivernn/lunr.js v2.3.9+incompatible/go.mod h1:yEkQ1DUSMtNsn8n2CqvQXZd0ErWPEG8g9QRmblR+KS8=
+github.com/slatedocs/slate v2.9.2+incompatible h1:PnIMTR1S7pE6tImIjF6ny9UaRrt6fukM93lwUwJPtjw=
+github.com/slatedocs/slate v2.9.2+incompatible/go.mod h1:n698aXLkExWIlF7prJey0Kq6wlKIKvj/stVb5oouZDM=
