@@ -1,41 +1,52 @@
 {{ define "main" }}
-    {{ range .Site.RegularPages }}
-        {{ .Content }}
-    {{ end }}
+  {{ range .Site.RegularPages.ByWeight.Reverse }}
+    {{ $tmp := .Content }}
+  {{ end }}
+  {{ range .Site.RegularPages }}
+    {{ .Content }}
+  {{ end }}
 {{ end }}
 
 {{ define "toc" }}
-    <ul id="toc" class="toc-list-h1">
-        {{ $maxDepth := 0 }}
-        {{ with $.Site.Params.maxMenuDepth }}
-            {{ $maxDepth = . }}
-        {{ else }}
-            {{ $maxDepth = 2 }}
-        {{ end }}
-        {{ $headers := slice }}
-        {{ with .Site.RegularPages  }}
-            {{ $headers = partial "funcs/toc_from_pages" . }}
-        {{ end }}
-        {{ range $headers }}
-            <li>
-                <a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a>
-                {{ if and (ge $maxDepth 2) .sub }}
-                    <ul class="toc-list-h2">
-                        {{ range .sub }}
-                            <li>
-                                <a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a>
-                                {{ if and (ge $maxDepth 3) .sub }}
-                                    <ul class="toc-list-h3">
-                                        {{ range .sub }}
-                                            <li><a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">{{ .title }}</a></li>
-                                        {{ end }}
-                                    </ul>
-                                {{ end }}
-                            </li>
-                        {{ end }}
-                    </ul>
+  <ul id="toc" class="toc-list-h1">
+    {{ $maxDepth := 0 }}
+    {{ with $.Site.Params.maxMenuDepth }}
+      {{ $maxDepth = . }}
+    {{ else }}
+      {{ $maxDepth = 2 }}
+    {{ end }}
+    {{ $headers := slice }}
+    {{ with .Site.RegularPages  }}
+      {{ $headers = partial "funcs/toc_from_pages" . }}
+    {{ end }}
+    {{ range $headers }}
+      <li>
+        <a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">
+          {{ .title }}
+        </a>
+        {{ if and (ge $maxDepth 2) .sub }}
+          <ul class="toc-list-h2">
+            {{ range .sub }}
+              <li>
+                <a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">
+                  {{ .title }}
+                </a>
+                {{ if and (ge $maxDepth 3) .sub }}
+                  <ul class="toc-list-h3">
+                    {{ range .sub }}
+                      <li>
+                        <a href="#{{ .id }}" class="toc-h{{ .level }} toc-link" data-title="{{ .title }}">
+                          {{ .title }}
+                        </a>
+                      </li>
+                    {{ end }}
+                  </ul>
                 {{ end }}
-            </li>
+              </li>
+            {{ end }}
+          </ul>
         {{ end }}
-    </ul>
+      </li>
+    {{ end }}
+  </ul>
 {{ end }}
