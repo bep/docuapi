@@ -1,0 +1,15 @@
+{{ $anchor := .Anchor }}
+{{ $s := site.Home.Scratch }}
+{{ $anchors := $s.Get "anchors" }}
+{{ if $anchors }}
+  {{ if index $anchors .Anchor }}
+    {{ range seq 10 }}
+      {{ if index $anchors $anchor }}
+        {{ $anchor = printf "%s-%d" $.Anchor . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $s.SetInMap "anchors" $anchor true }}
+{{ $h := printf "<h%d id=%q>%s</h%d>" .Level $anchor .Text .Level }}
+{{ $h | safeHTML }}
