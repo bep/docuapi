@@ -40,6 +40,9 @@
                     {{ $h2s = $h2s | append $tocItem }}
                     {{ $h3s = slice }}
                 {{ end }}
+                {{ if eq $previousLevel 2 }}
+                    {{ $h2s = $h2s | append $previousH2 }}
+                {{ end }}
                 {{ $previousH2 = $item }}
             {{ else }}
                 {{ $h3s = $h3s | append $item }}
@@ -50,6 +53,9 @@
 {{ end }}
 
 {{ if ne $previousLevel 0 }}
+    {{ $tocItem := merge $previousH2 (dict "sub" $h3s) }}
+    {{ $h2s = $h2s | append $tocItem }}
+
     {{ $item := merge $previousH1 (dict "sub" $h2s) }}
     {{ $toc = $toc | append $item }}
 {{ end }}
