@@ -10,6 +10,7 @@ title: Errors
 
 The Kittn API uses the following error codes:
 
+## 4xx
 
 Error Code | Meaning
 ---------- | -------
@@ -22,5 +23,10 @@ Error Code | Meaning
 410 | Gone -- The kitten requested has been removed from our servers
 418 | I'm a teapot
 429 | Too Many Requests -- You're requesting too many kittens! Slow down!
+
+## 5xx
+
+Error Code | Meaning
+---------- | -------
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarially offline for maintanance. Please try again later.
