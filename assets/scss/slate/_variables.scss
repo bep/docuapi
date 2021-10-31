@@ -1,17 +1,5 @@
 @import 'docuapi_overrides';
 
-.content {
-  // prevent clearing of highlight divs
-  &>div.highlight {
-    clear:none;
-  }
-}
-
-.toc-wrapper .toc-h3 {
-  padding-left: 50px;
-  font-size: 12px;
-}
-
 // BACKGROUND COLORS
 ////////////////////
 $nav-bg: #2E3336 !default;
@@ -102,3 +90,8 @@ $search-box-border-color: #666 !default;
     word-break: break-all;
     hyphens: auto;
 }
+
+// DocuAPI overrides.
+////////////////////
+@import 'styles';
+
