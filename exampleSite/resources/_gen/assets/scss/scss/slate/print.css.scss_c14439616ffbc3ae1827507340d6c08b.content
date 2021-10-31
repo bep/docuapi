@@ -357,13 +357,6 @@ td,
 th {
   padding: 0; }
 
-.content > div.highlight {
-  clear: none; }
-
-.toc-wrapper .toc-h3 {
-  padding-left: 50px;
-  font-size: 12px; }
-
 body, .content h3, .content h4, .content h2, .content h1 {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
@@ -380,6 +373,17 @@ body, .content h3, .content h4, .content h2, .content h1 {
 .content pre, .content code {
   word-break: break-all;
   hyphens: auto; }
+
+.content > div.highlight {
+  clear: none; }
+
+.toc-wrapper .toc-h3 {
+  padding-left: 50px;
+  font-size: 12px; }
+
+.da-toc-list-h2 {
+  background-color: #1E2224;
+  font-weight: 500; }
 
 @font-face {
   font-family: 'slateeee';

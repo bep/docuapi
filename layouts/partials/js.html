@@ -1,16 +1,9 @@
-{{ $isDev := ne hugo.Environment "production" }}
-{{ $allJS := resources.Get "js/slate/all.js" }}
-{{ $allNoSearchJS := resources.Get "js/slate/all_nosearch.js" }}
-{{ $importsAll := partial "funcs/extract_js_requirements.html" (dict "resource" $allJS "visited" newScratch )  | uniq }}
-{{ $importsAllNoSearch := partial "funcs/extract_js_requirements.html"  (dict "resource" $allNoSearchJS "visited" newScratch )  | uniq }}
-{{ $jsAll := partialCached "funcs/get_and_concat.html" (dict "imports" $importsAll "target" "js/all.js" ) "all" }}
-{{ $jsAllNoSearch := partialCached "funcs/get_and_concat.html" (dict "imports" $importsAllNoSearch "target" "js/all_nosearch.js" ) "no search"}}
-{{ if not $isDev }}
-{{ $jsAll = $jsAll | minify | fingerprint }}
-{{ $jsAllNoSearch = $jsAllNoSearch | minify | fingerprint }}
-{{ end  }}
-{{ if .Param "search" }}
-<script src='{{ $jsAll.RelPermalink }}'{{ if not $isDev }} integrity="{{ $jsAll.Data.Integrity }}"{{ end }}></script>
-{{ else }}
-<script src='{{ $jsAllNoSearch.RelPermalink }}'{{ if not $isDev }} integrity="{{ $jsAllNoSearch.Data.Integrity }}"{{ end }}></script>
+{{- $js := resources.Get "js/index.js" -}}
+{{ $params := (dict "search_config" site.Params.search_config "is_production" hugo.IsProduction ) }}
+{{ $sourceMap := cond hugo.IsProduction "" "inline" }}
+{{ $opts := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
+{{ $js = $js | js.Build $opts }}
+{{ if hugo.IsProduction }}
+  {{ $js = $js | fingerprint }}
 {{ end }}
+<script src="{{ $js.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $js.Data.Integrity }}"{{ end }} defer></script>

@@ -1,69 +1,75 @@
 <!doctype html>
 <html lang="{{ .Lang | default "en" }}">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{{ .Title }}</title>
+    <title>
+      {{ .Title }}
+    </title>
     {{ partial "styles.html" . }}
     {{ partial "js.html" . }}
     {{ partial "hook_head_end.html" . }}
-</head>
-<body class="index" data-languages="{{ with .Site.Params.language_tabs  }}[{{ range $i,$e := . }}{{- if $i -}}, {{ end -}}{{ printf " %q " $e.key }}{{end}}]{{ end }}">
-    <a href="#" id="nav-button">
-        <span>
+  </head>
+  <body class="index" x-data="{ navOpen: false }">
+    <a href="#" id="nav-button" @click="navOpen = !navOpen" :class="{'open': navOpen }">
+      <span>
         NAV
         <img src='{{ relURL "images/navbar.png" }}'/>
       </span>
     </a>
-    <div class="toc-wrapper">
-        {{ partial "hook_left_sidebar_start.html" . }}
-        {{ partial "hook_left_sidebar_logo.html" . }}
-        {{ with .Site.Params.language_tabs }}
-        <div class="lang-selector">
-            {{ range . }}
-            <a href="#" data-language-name="{{ .key }}">{{ .name  }}</a>
-            {{ end }}
+    <div class="toc-wrapper" :class="{'open': navOpen }">
+      {{ partial "hook_left_sidebar_start.html" . }}
+      {{ partial "hook_left_sidebar_logo.html" . }}
+      {{ if .Site.Params.search }}
+        <div class="search" x-data="searchController">
+          <input x-model.debounce.100ms="query" type="search" class="search" id="input-search" placeholder='{{ T "search" . }}'>
+          <ul class="search-results visible" x-show="results.length > 0" x-transition.duration.700ms >
+            <template x-for="item in results">
+              <li>
+                <a x-text="item.title"></a>
+              </li>
+            </template>
+          </ul>
         </div>
-        {{ end }} 
-        {{ if .Site.Params.search }}
-        <div class="search">
-            <input type="search" class="search" id="input-search" placeholder='{{ T "search" . }}'>
-        </div>
-        <ul class="search-results"></ul>
-        {{ end }}
-        {{ block "toc" . }}{{ end }}
-        {{ if .IsTranslated }}
-            <ul class="toc-footer">
-            <li class="toc-h1">{{ T "translations" (len .Translations ) }}</li>
-            {{ partial "translations.html" . }}
-            </ul> 
-    
-        {{ end }} 
-        {{ with .Site.Params.toc_footers }}
+      {{ end }}
+      {{ block "toc" . }}{{ end }}
+      {{ if .IsTranslated }}
         <ul class="toc-footer">
-            {{ range . }}
-            <li>{{ . | markdownify }}</li>
-            {{ end}}
+          <li class="toc-h1">
+            {{ T "translations" (len .Translations ) }}
+          </li>
+          {{ partial "translations.html" . }}
         </ul>
-        {{ end}}
-        {{ partial "hook_left_sidebar_end.html" . }}
+      {{ end }}
+      {{ with .Site.Params.toc_footers }}
+        <ul class="toc-footer">
+          {{ range . }}
+            <li>
+              {{ . | markdownify }}
+            </li>
+          {{ end}}
+        </ul>
+      {{ end}}
+      {{ partial "hook_left_sidebar_end.html" . }}
     </div>
     <div class="page-wrapper">
-        <div class="dark-box"></div>
-        <div class="content">
-            {{block "main" .}}This is the main content.{{end}}
-        </div>
-        <div class="dark-box">
-            {{ with .Site.Params.language_tabs }}
-            <div class="lang-selector">
-                {{ range . }}
-                <a href="#" data-language-name="{{ .key }}">{{ .name  }}</a>
-                {{ end }}
-            </div>
-            {{ end }}
-        </div>
+      <div class="dark-box"></div>
+      <div class="content">
+        {{block "main" .}}
+          This is the main content.
+        {{end}}
+      </div>
+      <div class="dark-box">
+        {{ with .Site.Params.language_tabs }}
+          <div class="lang-selector" x-data="langController" x-init="initLangs({{ . | jsonify }})">
+            <template x-for="(tab, index) in tabs">
+              <a x-text="tab.name" :class="{ 'active': tab.active }" @click="changeLanguage(index)"></a>
+            </template>
+          </div>
+        {{ end }}
+      </div>
     </div>
     {{ partial "hook_body_end.html" . }}
-</body>
+  </body>
 </html>
