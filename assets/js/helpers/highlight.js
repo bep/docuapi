@@ -1,13 +1,3 @@
-function walk(el, callback) {
-	callback(el);
-
-	let node = el.firstChild;
-	while (node) {
-		walk(node, callback);
-		node = node.nextSibling;
-	}
-}
-
 export class Highlight {
 	constructor(
 		opts = {
