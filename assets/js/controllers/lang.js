@@ -22,9 +22,12 @@ export function newLangController() {
 		},
 		initLangs: function(tabs) {
 			debug('initLangs', tabs);
-			this.changeLanguage(0);
 			tabs[0].active = true;
 			this.tabs = tabs;
+
+			return this.$nextTick(() => {
+				this.changeLanguage(0);
+			});
 		}
 	};
 }
