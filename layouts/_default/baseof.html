@@ -10,8 +10,13 @@
     {{ partial "styles.html" . }}
     {{ partial "js.html" . }}
     {{ partial "hook_head_end.html" . }}
+    <style>
+      [x-cloak] {
+      display: none !important;
+      }
+    </style>
   </head>
-  <body class="index" x-data="{ navOpen: false }">
+  <body class="index" x-data="{ navOpen: false }" x-cloak>
     <a href="#" id="nav-button" @click="navOpen = !navOpen" :class="{'open': navOpen }">
       <span>
         NAV
