@@ -48,3 +48,7 @@ The styles and Javascript import are also put in each partial and as such can be
 
 * `partials/styles.html`
 * `partials/js.html`
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/bep/docuapi.svg)](https://starchart.cc/bep/docuapi)
