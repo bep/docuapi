@@ -19,7 +19,7 @@ Import the theme in your Hugo config:
 path = "github.com/bep/docuapi/v2"
 ```
 
-Note, if you want the older jQuery-versjon, replace the path with `github.com/bep/docuapi`.
+Note, if you want the older jQuery-version, replace the path with `github.com/bep/docuapi`.
 
 If you want to edit the SCSS styles, you need:
 
