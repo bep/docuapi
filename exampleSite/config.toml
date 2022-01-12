@@ -1,5 +1,3 @@
-theme = "docuapi"
-themesdir = "../.."
 languageCode = "en-us"
 baseurl = "https://docuapi.netlify.com/"
 title = "DocuAPI Example Site"
@@ -25,8 +23,8 @@ defaultContentLanguage = "en"
 [module]
 [module.hugoVersion]
 [[module.imports]]
-# We include the theme by "../.." above, but we need one module import for Hugo to detect us as a Hugo Module.
-path="github.com/bep/empty-hugo-module"
+# This is replaced in go.mod to point to the directory above.
+path="github.com/bep/docuapi/v2"
 
 [params]
 search = true

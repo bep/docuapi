@@ -1,7 +1,5 @@
-github.com/bep/empty-hugo-module v1.0.0 h1:aYc9RWea644CdYjg9zCy8nkVF4KjC3fwhUTvvcXXg8s=
-github.com/bep/empty-hugo-module v1.0.0/go.mod h1:whohinbSjMoFi/Skivj9kvdPs1tEgzYpZ4rXoQk/0/I=
-github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.401.201 h1:rIBco2i/51nTPbi7pHUvwBwznCddMOsp/9pR2veAPx8=
-github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.401.201/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
+github.com/bep/docuapi/v2 v2.0.4 h1:TU6CzjdfiWI+D/d911r8ZQG7R8h64ayEaC6iWNbJ/NQ=
+github.com/bep/docuapi/v2 v2.0.4/go.mod h1:hoeibCSjXWJ/fLOwPSo8WZbgl5EO3zQjS/nrAs2v2Ro=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.500.100 h1:yIymGxglvwr9Guhk7cr9VoMQ3IgLLJ0E4PKcKCg+kJY=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.500.100/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
 github.com/olivernn/lunr.js v2.3.9+incompatible h1:eH8iBnjlR4mwlYDdNuqy9PCNLjp2bEs6aoNnTSaccx0=
