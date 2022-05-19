@@ -60,7 +60,9 @@ export function newToCController() {
 
 		rowClass: function (row) {
 			return {
-				class: `toc-h${row.level}${row.active ? ' active' : ''}${row.active_parent ? ' active-parent' : ''}`,
+				['x-bind:class']() {
+					return `toc-h${row.level}${row.active ? ' active' : ''}${row.active_parent ? ' active-parent' : ''}`;
+				},
 			};
 		},
 
