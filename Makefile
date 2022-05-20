@@ -5,7 +5,7 @@
 #
 # n.b. you must install fswatch (OS X: `brew install fswatch`)
 #
-# To start live live rebuilds, use the following command:
+# To start live rebuilds, use the following command:
 # $ make serve
 #
 
