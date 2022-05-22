@@ -1,6 +1,6 @@
-const debug = 0 ? console.log.bind(console, '[lang]') : function() {};
+const debug = 0 ? console.log.bind(console, '[lang]') : function () {};
 
-const toggleCodeblockVisibility = function(lang, visible) {
+const toggleCodeblockVisibility = function (lang, visible) {
 	debug('toggleCodeblockVisibility', lang, visible);
 	document.querySelectorAll(`.highlight code.language-${lang}`).forEach((el) => {
 		let highlight = el.closest('.highlight');
@@ -11,7 +11,7 @@ const toggleCodeblockVisibility = function(lang, visible) {
 export function newLangController() {
 	return {
 		tabs: [],
-		changeLanguage: function(index) {
+		changeLanguage: function (index) {
 			debug('changeLanguage', index);
 			for (let i = 0; i < this.tabs.length; i++) {
 				let isActive = i === index;
@@ -20,7 +20,7 @@ export function newLangController() {
 				toggleCodeblockVisibility(this.tabs[i].key, isActive);
 			}
 		},
-		initLangs: function(tabs) {
+		initLangs: function (tabs) {
 			debug('initLangs', tabs);
 			tabs[0].active = true;
 			this.tabs = tabs;
@@ -28,6 +28,6 @@ export function newLangController() {
 			return this.$nextTick(() => {
 				this.changeLanguage(0);
 			});
-		}
+		},
 	};
 }

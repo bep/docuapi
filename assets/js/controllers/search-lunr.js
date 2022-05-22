@@ -18,7 +18,7 @@ function nextUntil(elem, selector) {
 export function newSearchController() {
 	var index;
 
-	var buildIndex = function(config) {
+	var buildIndex = function (config) {
 		var builder = new lunr.Builder();
 
 		builder.pipeline.add(lunr.trimmer, lunr.stopWordFilter, lunr.stemmer);
@@ -30,7 +30,7 @@ export function newSearchController() {
 	};
 
 	function populateIndex() {
-		index = buildIndex(function() {
+		index = buildIndex(function () {
 			this.ref('id');
 			this.field('title', { boost: 10 });
 			this.field('body');
@@ -44,7 +44,7 @@ export function newSearchController() {
 				this.add({
 					id: headerEl.id,
 					title: headerEl.textContent,
-					body: body
+					body: body,
 				});
 			});
 		});
@@ -55,7 +55,7 @@ export function newSearchController() {
 	return {
 		query: '',
 		results: [],
-		init: function() {
+		init: function () {
 			return this.$nextTick(() => {
 				populateIndex();
 				this.$watch('query', () => {
@@ -63,7 +63,7 @@ export function newSearchController() {
 				});
 			});
 		},
-		search: function() {
+		search: function () {
 			highlight.remove();
 			let results = index.search(this.query).filter((item) => item.score > 0.0001);
 
@@ -71,13 +71,13 @@ export function newSearchController() {
 				var elem = document.getElementById(item.ref);
 
 				return {
-					title: elem.innerText
+					title: elem.innerText,
 				};
 			});
 
 			if (this.results.length > 0) {
 				highlight.apply(new RegExp(this.query, 'i'));
 			}
-		}
+		},
 	};
 }

@@ -1,20 +1,20 @@
 'use strict';
 
-const debug = 0 ? console.log.bind(console, '[toc]') : function() {};
+const debug = 0 ? console.log.bind(console, '[toc]') : function () {};
 
 const headerEls = () => document.querySelectorAll('.content h1, .content h2, .content h3');
 
-const setProgress = function(self, el) {
+const setProgress = function (self, el) {
 	let mainEl = document.querySelector('.content');
 	let mainHeight = mainEl.offsetHeight;
 	let mainStart = mainEl.offsetTop;
-	let progress = Math.round((el.offsetTop - mainStart) / mainHeight * 100);
+	let progress = Math.round(((el.offsetTop - mainStart) / mainHeight) * 100);
 	self.activeHeading.title = el.innerText;
 	self.activeHeading.progress = progress;
 };
 
 export function newToCController() {
-	const setOpenRecursive = function(row, shouldOpen) {
+	const setOpenRecursive = function (row, shouldOpen) {
 		if (!row.sub) {
 			return false;
 		}
@@ -42,29 +42,29 @@ export function newToCController() {
 	return {
 		activeHeading: {
 			title: '',
-			progress: 0
+			progress: 0,
 		},
 		showHeading: true,
 		rows: [],
-		load: function(rows) {
+		load: function (rows) {
 			this.rows = rows;
 		},
 
-		transitions: function() {
+		transitions: function () {
 			return {
 				'x-transition:enter.duration.500ms': '',
 				'x-transition:leave.duration.400ms': '',
-				'x-transition.scale.origin.top.left.80': ''
+				'x-transition.scale.origin.top.left.80': '',
 			};
 		},
 
-		rowClass: function(row) {
+		rowClass: function (row) {
 			return {
-				class: `toc-h${row.level}${row.active ? ' active' : ''}${row.active_parent ? ' active-parent' : ''}`
+				class: `toc-h${row.level}${row.active ? ' active' : ''}${row.active_parent ? ' active-parent' : ''}`,
 			};
 		},
 
-		click: function(row) {
+		click: function (row) {
 			this.rows.forEach((row2) => {
 				setOpenRecursive(row2, (row3) => {
 					return row === row3;
@@ -72,7 +72,7 @@ export function newToCController() {
 			});
 		},
 
-		onScroll: function() {
+		onScroll: function () {
 			debug('onScroll');
 			let scrollpos = window.scrollY;
 
@@ -95,6 +95,6 @@ export function newToCController() {
 					this.activeHeading.progress = 100;
 				}
 			});
-		}
+		},
 	};
 }

@@ -2,7 +2,7 @@ export class Highlight {
 	constructor(
 		opts = {
 			contentSelector: '.content',
-			markClass: 'da-highlight-mark'
+			markClass: 'da-highlight-mark',
 		}
 	) {
 		this.opts = opts;
@@ -22,7 +22,7 @@ export class Highlight {
 						return NodeFilter.FILTER_ACCEPT;
 					}
 					return NodeFilter.FILTER_REJECT;
-				}
+				},
 			},
 			false
 		);
@@ -71,7 +71,7 @@ export class Highlight {
 			if (node.parentNode && node.parentNode.parentNode) {
 				this.nodeStack.push({
 					old: node.parentNode,
-					new: parentClone
+					new: parentClone,
 				});
 				node.parentNode.parentNode.replaceChild(parentClone, node.parentNode);
 			}
