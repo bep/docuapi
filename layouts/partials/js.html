@@ -6,4 +6,7 @@
 {{ if hugo.IsProduction }}
   {{ $js = $js | fingerprint }}
 {{ end }}
-<script src="{{ $js.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $js.Data.Integrity }}"{{ end }} defer></script>
+<script
+  src="{{ $js.RelPermalink }}"
+  {{ if hugo.IsProduction }}integrity="{{ $js.Data.Integrity }}"{{ end }}
+  defer></script>

@@ -1,9 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ .Lang | default "en" }}">
   <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>
       {{ .Title }}
     </title>
@@ -12,15 +14,19 @@
     {{ partial "hook_head_end.html" . }}
     <style>
       [x-cloak] {
-      display: none !important;
+        display: none !important;
       }
     </style>
   </head>
   <body class="index" x-data="{ navOpen: false }" x-cloak>
-    <a href="#" id="nav-button" @click="navOpen = !navOpen" :class="{'open': navOpen }">
+    <a
+      href="#"
+      id="nav-button"
+      @click="navOpen = !navOpen"
+      :class="{'open': navOpen }">
       <span>
         NAV
-        <img src='{{ relURL "images/navbar.png" }}'/>
+        <img src="{{ relURL "images/navbar.png" }}" />
       </span>
     </a>
     <div class="toc-wrapper" :class="{'open': navOpen }">
@@ -28,8 +34,16 @@
       {{ partial "hook_left_sidebar_logo.html" . }}
       {{ if .Site.Params.search }}
         <div class="search" x-data="searchController">
-          <input x-model.debounce.100ms="query" type="search" class="search" id="input-search" placeholder='{{ T "search" . }}'>
-          <ul class="search-results visible" x-show="results.length > 0" x-transition.duration.700ms >
+          <input
+            x-model.debounce.100ms="query"
+            type="search"
+            class="search"
+            id="input-search"
+            placeholder="{{ T "search" . }}" />
+          <ul
+            class="search-results visible"
+            x-show="results.length > 0"
+            x-transition.duration.700ms>
             <template x-for="item in results">
               <li>
                 <a x-text="item.title"></a>
@@ -53,23 +67,29 @@
             <li>
               {{ . | markdownify }}
             </li>
-          {{ end}}
+          {{ end }}
         </ul>
-      {{ end}}
+      {{ end }}
       {{ partial "hook_left_sidebar_end.html" . }}
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        {{block "main" .}}
+        {{ block "main" . }}
           This is the main content.
-        {{end}}
+        {{ end }}
       </div>
       <div class="dark-box">
         {{ with .Site.Params.language_tabs }}
-          <div class="lang-selector" x-data="langController" x-init="initLangs({{ . | jsonify }})">
+          <div
+            class="lang-selector"
+            x-data="langController"
+            x-init="initLangs({{ . | jsonify }})">
             <template x-for="(tab, index) in tabs">
-              <a x-text="tab.name" :class="{ 'active': tab.active }" @click="changeLanguage(index)"></a>
+              <a
+                x-text="tab.name"
+                :class="{ 'active': tab.active }"
+                @click="changeLanguage(index)"></a>
             </template>
           </div>
         {{ end }}

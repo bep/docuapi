@@ -9,24 +9,47 @@
 
 {{ define "toc" }}
   {{ $headers := slice }}
-  {{ with .Site.RegularPages  }}
+  {{ with .Site.RegularPages }}
     {{ $headers = partial "funcs/toc_from_pages" . }}
   {{ end }}
-  <ul id="toc" class="toc-list-h1" x-data="tocController" x-init="load({{ $headers | jsonify }})" @scroll.window="onScroll()">
+  <ul
+    id="toc"
+    class="toc-list-h1"
+    x-data="tocController"
+    x-init="load({{ $headers | jsonify }})"
+    @scroll.window="onScroll()">
     {{ $maxDepth := $.Site.Params.maxMenuDepth | default 2 }}
     <template x-for="row in rows">
       <li>
-        <a x-text="row.title" @click="click(row)" :href="`#${row.id}`" class="toc-link" x-bind="rowClass(row)"></a>
-        {{ if  (ge $maxDepth 2)  }}
+        <a
+          x-text="row.title"
+          @click="click(row)"
+          :href="`#${row.id}`"
+          class="toc-link"
+          x-bind="rowClass(row)"></a>
+        {{ if  (ge $maxDepth 2) }}
           <ul x-show="row.open" x-bind="transitions()" class="da-toc-list-h2">
             <template x-for="row in row.sub">
               <li>
-                <a x-text="row.title" @click="click(row)" :href="`#${row.id}`" class="toc-link" x-bind="rowClass(row)"></a>
-                {{ if (ge $maxDepth 3)  }}
-                  <ul x-show="row.open" x-bind="transitions()" class="toc-list-h3">
+                <a
+                  x-text="row.title"
+                  @click="click(row)"
+                  :href="`#${row.id}`"
+                  class="toc-link"
+                  x-bind="rowClass(row)"></a>
+                {{ if (ge $maxDepth 3) }}
+                  <ul
+                    x-show="row.open"
+                    x-bind="transitions()"
+                    class="toc-list-h3">
                     <template x-for="row in row.sub">
                       <li>
-                        <a  x-text="row.title" @click="click(row)" :href="`#${row.id}`"  class="toc-link" x-bind="rowClass(row)"></a>
+                        <a
+                          x-text="row.title"
+                          @click="click(row)"
+                          :href="`#${row.id}`"
+                          class="toc-link"
+                          x-bind="rowClass(row)"></a>
                       </li>
                     </template>
                   </ul>

@@ -2,11 +2,18 @@
 {{ $cssOpts := (dict "targetPath" "styles/screen.css" "enableSourceMap" $isDev ) }}
 {{ $screenCSS := resources.Get "scss/slate/screen.css.scss" | toCSS $cssOpts }}
 {{ $cssOpts = (dict "targetPath" "styles/print.css" "enableSourceMap" $isDev ) }}
-{{ $printCSS := resources.Get "scss/slate/print.css.scss" | toCSS $cssOpts  }}
+{{ $printCSS := resources.Get "scss/slate/print.css.scss" | toCSS $cssOpts }}
 {{ if not $isDev }}
-{{ $printCSS = $printCSS |  postCSS | minify | fingerprint }}
-{{ $screenCSS = $screenCSS |  postCSS | minify | fingerprint }}
+  {{ $printCSS = $printCSS |  postCSS | minify | fingerprint }}
+  {{ $screenCSS = $screenCSS |  postCSS | minify | fingerprint }}
 {{ end }}
-<link href='{{ $screenCSS.RelPermalink }}' rel="stylesheet" media="screen" {{ if not $isDev }}integrity="{{ $screenCSS.Data.Integrity }}"{{ end }} />
-<link href='{{ $printCSS.RelPermalink }}' rel="stylesheet" media="print" {{ if not $isDev }}integrity="{{ $printCSS.Data.Integrity }}"{{ end }} />
-
+<link
+  href="{{ $screenCSS.RelPermalink }}"
+  rel="stylesheet"
+  media="screen"
+  {{ if not $isDev }}integrity="{{ $screenCSS.Data.Integrity }}"{{ end }} />
+<link
+  href="{{ $printCSS.RelPermalink }}"
+  rel="stylesheet"
+  media="print"
+  {{ if not $isDev }}integrity="{{ $printCSS.Data.Integrity }}"{{ end }} />
