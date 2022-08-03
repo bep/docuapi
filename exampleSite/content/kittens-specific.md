@@ -61,7 +61,7 @@ This endpoint retrieves a specific kitten.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://example.com/api/kittens/<ID>`
 
 ### URL Parameters
 
