@@ -72,6 +72,7 @@ export function newSearchController() {
 
 				return {
 					title: elem.innerText,
+					id: item.ref,
 				};
 			});
 

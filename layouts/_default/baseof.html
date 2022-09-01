@@ -46,7 +46,7 @@
             x-transition.duration.700ms>
             <template x-for="item in results">
               <li>
-                <a x-text="item.title"></a>
+                <a x-text="item.title" :href="`#${item.id}`"></a>
               </li>
             </template>
           </ul>
