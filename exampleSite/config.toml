@@ -55,22 +55,20 @@ languageName = "English"
 weight = 2
 title = "DocuAPI Example Site"
 
+[languages.en.params]
 # Left sidebar footer items. Use HTMl or Markdown.
 toc_footers = [ 
 "<a href='#'>Sign Up for a Developer Key</a>",
 "Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
 "Hugo Theme by [bep](https://github.com/bep)"
 ]
-[languages.en.blackfriday]
-angledQuotes = false
-hrefTargetBlank = true
-
 
 [languages.nn]
 languageName = "Nynorsk"
 weight = 1
 title = "DocuAPI-døme"
 
+[languages.nn.params]
 # Left sidebar footer items. Use HTMl or Markdown.
 toc_footers = [ 
 "<a href='#'>Registrer deg for ein utviklarnøkkel</a>",
@@ -78,7 +76,3 @@ toc_footers = [
 "Hugo Theme av [bep](https://github.com/bep)"
 ]
 
-[languages.nn.blackfriday]
-# Norwegian uses angled quotes
-angledQuotes = true
-hrefTargetBlank = true
