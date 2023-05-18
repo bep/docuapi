@@ -1,15 +1,15 @@
 languageCode = "en-us"
-baseurl = "https://docuapi.netlify.com/"
-title = "DocuAPI Example Site"
+baseurl      = "https://docuapi.netlify.com/"
+title        = "DocuAPI Example Site"
 
 disableKinds = ["taxonomyTerm"]
 
 # Code higlighting settings
-pygmentsCodefences = true
+pygmentsCodefences            = true
 pygmentsCodeFencesGuesSsyntax = false
-pygmentsOptions = ""
-pygmentsStyle = "monokai"
-pygmentsUseClasses = false
+pygmentsOptions               = ""
+pygmentsStyle                 = "monokai"
+pygmentsUseClasses            = false
 
 defaultContentLanguage = "en"
 
@@ -18,61 +18,60 @@ defaultContentLanguage = "en"
     [markup.goldmark.parser]
       autoHeadingIDType = "github-ascii"
     [markup.goldmark.renderer]
-        unsafe = true
+      unsafe = true
 
 [module]
-[module.hugoVersion]
-[[module.imports]]
-# This is replaced in go.mod to point to the directory above.
-path="github.com/bep/docuapi/v2"
+  [module.hugoVersion]
+  [[module.imports]]
+    # This is replaced in go.mod to point to the directory above.
+    path = "github.com/bep/docuapi/v2"
 
 [params]
-search = true
-maxMenuDepth = 3 # (optional) available options are: 1, 2, or 3 (default: 2)
-  
-# Configure the language example tabs.
-[[params.language_tabs]]
-key = "go"
-name = "Go" 
-[[params.language_tabs]]
-key = "shell"
-name = "Shell" 
-[[params.language_tabs]]
-key = "ruby"
-name = "Ruby"
-[[params.language_tabs]]
-key = "python"
-name = "Python"
-[[params.language_tabs]]
-key = "javascript"
-name = "Javascript"
+  search       = true
+  maxMenuDepth = 3    # (optional) available options are: 1, 2, or 3 (default: 2)
+
+  # Configure the language example tabs.
+  [[params.language_tabs]]
+    key  = "go"
+    name = "Go"
+  [[params.language_tabs]]
+    key  = "shell"
+    name = "Shell"
+  [[params.language_tabs]]
+    key  = "ruby"
+    name = "Ruby"
+  [[params.language_tabs]]
+    key  = "python"
+    name = "Python"
+  [[params.language_tabs]]
+    key  = "javascript"
+    name = "Javascript"
 
 #Languages 
 [languages]
 
-[languages.en]
-languageName = "English"
-weight = 2
-title = "DocuAPI Example Site"
+  [languages.en]
+    languageName = "English"
+    weight       = 2
+    title        = "DocuAPI Example Site"
 
-[languages.en.params]
-# Left sidebar footer items. Use HTMl or Markdown.
-toc_footers = [ 
-"<a href='#'>Sign Up for a Developer Key</a>",
-"Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
-"Hugo Theme by [bep](https://github.com/bep)"
-]
+    [languages.en.params]
+      # Left sidebar footer items. Use HTMl or Markdown.
+      toc_footers = [
+        "<a href='#'>Sign Up for a Developer Key</a>",
+        "Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
+        "Hugo Theme by [bep](https://github.com/bep)",
+      ]
 
 [languages.nn]
-languageName = "Nynorsk"
-weight = 1
-title = "DocuAPI-døme"
+  languageName = "Nynorsk"
+  weight       = 1
+  title        = "DocuAPI-døme"
 
-[languages.nn.params]
-# Left sidebar footer items. Use HTMl or Markdown.
-toc_footers = [ 
-"<a href='#'>Registrer deg for ein utviklarnøkkel</a>",
-"Dokumentasjonen er driven av [DocuAPI](https://github.com/bep/docuapi)",
-"Hugo Theme av [bep](https://github.com/bep)"
-]
-
+  [languages.nn.params]
+    # Left sidebar footer items. Use HTMl or Markdown.
+    toc_footers = [
+      "<a href='#'>Registrer deg for ein utviklarnøkkel</a>",
+      "Dokumentasjonen er driven av [DocuAPI](https://github.com/bep/docuapi)",
+      "Hugo Theme av [bep](https://github.com/bep)",
+    ]
