@@ -1,20 +1,18 @@
 [build]
-publish = "exampleSite/public"
-command = "hugo --gc -s exampleSite --minify"
+    publish = "exampleSite/public"
+    command = "hugo --gc -s exampleSite --minify"
 
 [context.production.environment]
-HUGO_VERSION = "0.110.0"
+    HUGO_VERSION = "0.110.0"
 
 [context.deploy-preview]
-command = "hugo -s exampleSite --minify -D -F -b $DEPLOY_PRIME_URL"
+    command = "hugo -s exampleSite --minify -D -F -b $DEPLOY_PRIME_URL"
 
-[context.deploy-preview.environment]
-HUGO_VERSION = "0.110.0"
+    [context.deploy-preview.environment]
+        HUGO_VERSION = "0.110.0"
 
 [context.branch-deploy]
-command = "hugo -s exampleSite --minify --gc -b $DEPLOY_PRIME_URL"
+    command = "hugo -s exampleSite --minify --gc -b $DEPLOY_PRIME_URL"
 
-[context.branch-deploy.environment]
-HUGO_VERSION = "0.110.0"
-
-
+    [context.branch-deploy.environment]
+        HUGO_VERSION = "0.110.0"

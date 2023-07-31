@@ -1,18 +1,18 @@
-name = "DocuAPI"
-license = "Apache-2.0"
+name        = "DocuAPI"
+license     = "Apache-2.0"
 licenselink = "https://github.com/bep/docuapi/blob/master/LICENSE.md"
 description = "Beautiful documentation for your API."
-homepage = "https://github.com/bep/docuapi"
-demosite = "https://docuapi.netlify.app/"
-tags = ["Documentation", "API", "Docs", "Responsive", "Multilingual"]
-features = ["Documentation", "Multilingual"]
+homepage    = "https://github.com/bep/docuapi"
+demosite    = "https://docuapi.netlify.app/"
+tags        = ["Documentation", "API", "Docs", "Responsive", "Multilingual"]
+features    = ["Documentation", "Multilingual"]
 min_version = "0.110.0"
 
 [author]
-  name = "Bjørn Erik Pedersen"
+  name     = "Bjørn Erik Pedersen"
   homepage = "http://bep.is"
 
 [original]
-  name = "Slate"
+  name     = "Slate"
   homepage = "https://github.com/slatedocs/slate"
-  repo = "https://github.com/slatedocs/slate"
+  repo     = "https://github.com/slatedocs/slate"
