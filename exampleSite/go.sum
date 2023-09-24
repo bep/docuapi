@@ -3,7 +3,9 @@ github.com/bep/docuapi/v2 v2.0.4/go.mod h1:hoeibCSjXWJ/fLOwPSo8WZbgl5EO3zQjS/nrA
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.500.100 h1:yIymGxglvwr9Guhk7cr9VoMQ3IgLLJ0E4PKcKCg+kJY=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.500.100/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.21000.20200/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
+github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.21000.20300/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
 github.com/olivernn/lunr.js v2.3.9+incompatible h1:eH8iBnjlR4mwlYDdNuqy9PCNLjp2bEs6aoNnTSaccx0=
 github.com/olivernn/lunr.js v2.3.9+incompatible/go.mod h1:yEkQ1DUSMtNsn8n2CqvQXZd0ErWPEG8g9QRmblR+KS8=
 github.com/slatedocs/slate v2.9.2+incompatible h1:PnIMTR1S7pE6tImIjF6ny9UaRrt6fukM93lwUwJPtjw=
 github.com/slatedocs/slate v2.9.2+incompatible/go.mod h1:n698aXLkExWIlF7prJey0Kq6wlKIKvj/stVb5oouZDM=
+github.com/slatedocs/slate v2.13.1+incompatible/go.mod h1:n698aXLkExWIlF7prJey0Kq6wlKIKvj/stVb5oouZDM=
