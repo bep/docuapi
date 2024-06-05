@@ -4,7 +4,7 @@
 
 <br/>
 
-> Visit the [demo site](https://docuapi.netlify.com/).
+> Visit the [demo site](https://docuapi.netlify.app/).
 
 <br/>
 
