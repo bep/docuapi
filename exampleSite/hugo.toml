@@ -1,5 +1,5 @@
 languageCode = "en-us"
-baseurl      = "https://docuapi.netlify.com/"
+baseurl      = "https://docuapi.netlify.app/"
 title        = "DocuAPI Example Site"
 
 disableKinds = ["taxonomy"]
