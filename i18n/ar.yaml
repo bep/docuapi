@@ -1,0 +1,8 @@
+- id: translations
+  translation: 
+    one: "تَرجمَة"
+    other: "ترْجمَات"
+
+# Search label
+- id: search
+  translation: "بَحْث"
