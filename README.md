@@ -26,7 +26,7 @@ If you want to edit the SCSS styles, you need:
 * The extended Hugo version.
 * PostCSS CLI (run `npm install` to install requirements)
 
-See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) and more specific its site [configuration](https://github.com/bep/docuapi/blob/master/exampleSite/config.toml) for the available options.
+See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) and more specific its site [configuration](https://github.com/bep/docuapi/blob/master/exampleSite/hugo.toml) for the available options.
 
 **Most notable:** This theme will use all the (non drafts) pages in the site and build a single-page API documentation. Using `weight` in the page front matter is the easiest way to control page order.
 
