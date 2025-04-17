@@ -4,7 +4,7 @@ licenselink = "https://github.com/bep/docuapi/blob/master/LICENSE.md"
 description = "Beautiful documentation for your API."
 homepage = "https://github.com/bep/docuapi"
 demosite = "https://docuapi.netlify.app/"
-tags = ["Documentation", "API", "Docs", "Responsive", "Multilingual"]
+tags = ["documentation", "api", "docs", "sass", "multilingual"]
 features = ["Documentation", "Multilingual"]
 min_version = 0.17
 
