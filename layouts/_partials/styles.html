@@ -1,11 +1,11 @@
 {{ $isDev := ne hugo.Environment "production" }}
 {{ $cssOpts := (dict "targetPath" "styles/screen.css" "enableSourceMap" $isDev ) }}
-{{ $screenCSS := resources.Get "scss/slate/screen.css.scss" | toCSS $cssOpts }}
+{{ $screenCSS := resources.Get "scss/slate/screen.css.scss" | css.Sass $cssOpts }}
 {{ $cssOpts = (dict "targetPath" "styles/print.css" "enableSourceMap" $isDev ) }}
-{{ $printCSS := resources.Get "scss/slate/print.css.scss" | toCSS $cssOpts }}
+{{ $printCSS := resources.Get "scss/slate/print.css.scss" | css.Sass $cssOpts }}
 {{ if not $isDev }}
-  {{ $printCSS = $printCSS |  postCSS | minify | fingerprint }}
-  {{ $screenCSS = $screenCSS |  postCSS | minify | fingerprint }}
+  {{ $printCSS = $printCSS |  css.PostCSS | minify | fingerprint }}
+  {{ $screenCSS = $screenCSS |  css.PostCSS | minify | fingerprint }}
 {{ end }}
 <link
   href="{{ $screenCSS.RelPermalink }}"
