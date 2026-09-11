@@ -1,4 +1,4 @@
-languageCode = "en-us"
+locale = "en-us"
 baseurl      = "https://docuapi.netlify.app/"
 title        = "DocuAPI Example Site"
 
@@ -51,7 +51,7 @@ defaultContentLanguage = "en"
 [languages]
 
   [languages.en]
-    languageName = "English"
+    label = "English"
     weight       = 2
     title        = "DocuAPI Example Site"
     [languages.en.params]
@@ -63,7 +63,7 @@ defaultContentLanguage = "en"
       ]
 
 [languages.nn]
-  languageName = "Nynorsk"
+  label = "Nynorsk"
   weight       = 1
   title        = "DocuAPI-døme"
 
