@@ -1,5 +1,5 @@
 import { newLangController, newSearchController, newToCController } from './controllers';
-import Alpine from 'jslibs/alpinejs/v3/alpinejs/dist/module.esm.js';
+import Alpine from 'alpinejs';
 
 // Register AlpineJS data controllers.
 Alpine.data('searchController', newSearchController);

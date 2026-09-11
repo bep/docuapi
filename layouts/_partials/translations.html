@@ -2,7 +2,7 @@
   <ul>
     {{ range $i, $e := .Translations }}
       <li class="toc-h2">
-        <a href="{{ .Permalink }}">{{ $e.Language.LanguageName }}</a>
+        <a href="{{ .Permalink }}">{{ $e.Language.Label }}</a>
       </li>
     {{ end }}
   </ul>
