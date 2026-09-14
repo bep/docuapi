@@ -6,7 +6,6 @@ homepage = "https://github.com/bep/docuapi"
 demosite = "https://docuapi.netlify.app/"
 tags = ["documentation", "api", "docs", "sass", "multilingual"]
 features = ["Documentation", "Multilingual"]
-min_version = 0.17
 
 [author]
   name = "Bjørn Erik Pedersen"
