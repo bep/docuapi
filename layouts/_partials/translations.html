@@ -1,9 +1,9 @@
 {{ if .IsTranslated }}
-  <ul>
-    {{ range $i, $e := .Translations }}
-      <li class="toc-h2">
-        <a href="{{ .Permalink }}">{{ $e.Language.Label }}</a>
-      </li>
-    {{ end }}
-  </ul>
+	<ul>
+		{{ range $i, $e := .Translations }}
+			<li class="toc-h2">
+				<a href="{{ .Permalink }}">{{ $e.Language.Label }}</a>
+			</li>
+		{{ end }}
+	</ul>
 {{ end }}

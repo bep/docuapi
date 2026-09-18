@@ -1,6 +1,6 @@
 module github.com/bep/docuapi/exampleSite
 
-go 1.26.0
+go 1.26.1
 
 require (
 	github.com/bep/docuapi/v2 v2.2.0 // indirect
