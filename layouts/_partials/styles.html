@@ -1,19 +1,19 @@
 {{ $isDev := ne hugo.Environment "production" }}
-{{ $cssOpts := (dict "targetPath" "styles/screen.css" "enableSourceMap" $isDev ) }}
+{{ $cssOpts := (dict "targetPath" "styles/screen.css" "enableSourceMap" $isDev) }}
 {{ $screenCSS := resources.Get "scss/slate/screen.css.scss" | css.Sass $cssOpts }}
-{{ $cssOpts = (dict "targetPath" "styles/print.css" "enableSourceMap" $isDev ) }}
+{{ $cssOpts = (dict "targetPath" "styles/print.css" "enableSourceMap" $isDev) }}
 {{ $printCSS := resources.Get "scss/slate/print.css.scss" | css.Sass $cssOpts }}
 {{ if not $isDev }}
-  {{ $printCSS = $printCSS |  css.PostCSS | minify | fingerprint }}
-  {{ $screenCSS = $screenCSS |  css.PostCSS | minify | fingerprint }}
+	{{ $printCSS = $printCSS | css.PostCSS | minify | fingerprint }}
+	{{ $screenCSS = $screenCSS | css.PostCSS | minify | fingerprint }}
 {{ end }}
 <link
-  href="{{ $screenCSS.RelPermalink }}"
-  rel="stylesheet"
-  media="screen"
-  {{ if not $isDev }}integrity="{{ $screenCSS.Data.Integrity }}"{{ end }} />
+	href="{{ $screenCSS.RelPermalink }}"
+	rel="stylesheet"
+	media="screen"
+	{{ if not $isDev }}integrity="{{ $screenCSS.Data.Integrity }}"{{ end }} />
 <link
-  href="{{ $printCSS.RelPermalink }}"
-  rel="stylesheet"
-  media="print"
-  {{ if not $isDev }}integrity="{{ $printCSS.Data.Integrity }}"{{ end }} />
+	href="{{ $printCSS.RelPermalink }}"
+	rel="stylesheet"
+	media="print"
+	{{ if not $isDev }}integrity="{{ $printCSS.Data.Integrity }}"{{ end }} />
