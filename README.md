@@ -42,6 +42,14 @@ You can customize the look-and-feel by setting CSS variables in your site config
 
 See [assets/css/docuapi/vars.css](https://github.com/bep/docuapi/blob/master/assets/css/docuapi/vars.css) for the available variables. You can also set them in your own `assets/css/docuapi/vars-custom.css`, which is empty in the theme. For more extensive changes, use `partials/hook_head_end.html` to add your own stylesheet.
 
+The code highlighting styles are generated from your `markup.highlight` configuration, so make sure CSS classes are enabled (`noClasses = false`, the default) and pick a [style](https://gohugo.io/quick-reference/syntax-highlighting-styles/):
+
+```toml
+[markup.highlight]
+  noClasses = false
+  style     = "monokai"
+```
+
 ## Hooks
 
 You can override the layouts by providing some custom partials:
