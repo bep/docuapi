@@ -1,12 +1,18 @@
-{{- $js := resources.Get "js/index.js" -}}
-{{ $params := (dict "search_config" site.Params.search_config "is_production" hugo.IsProduction) }}
-{{ $sourceMap := cond hugo.IsProduction "" "inline" }}
-{{ $opts := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
-{{ $js = $js | js.Build $opts }}
-{{ if hugo.IsProduction }}
-	{{ $js = $js | fingerprint }}
+{{ with resources.Get "js/index.js" }}
+	{{ $params := dict "search_config" site.Params.search_config "is_production" hugo.IsProduction }}
+	{{ $opts := dict
+		"target" "es2018"
+		"params" $params
+		"minify" (cond hugo.IsDevelopment false true)
+		"sourceMap" (cond hugo.IsDevelopment "inline" "")
+	}}
+	{{ with . | js.Build $opts }}
+		{{ if hugo.IsDevelopment }}
+			<script src="{{ .RelPermalink }}" defer></script>
+		{{ else }}
+			{{ with . | fingerprint }}
+				<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+			{{ end }}
+		{{ end }}
+	{{ end }}
 {{ end }}
-<script
-	src="{{ $js.RelPermalink }}"
-	{{ if hugo.IsProduction }}integrity="{{ $js.Data.Integrity }}"{{ end }}
-	defer></script>

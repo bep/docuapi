@@ -1,0 +1,693 @@
+@import "reset.css";
+@import "vars.css";
+@import "vars-custom.css";
+@import "hugo:vars";
+@import "print.css" print;
+
+/*
+Based on Slate, https://github.com/slatedocs/slate
+Copyright 2008-2013 Concur Technologies, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License. You may obtain
+a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+*/
+
+/* Breakpoints (CSS variables can't be used in media queries):
+   - tablet: max-width 930px, the navigation collapses.
+   - phone: max-width 700px, the examples move in under the prose. */
+
+[x-cloak] {
+  display: none !important;
+}
+
+html,
+body {
+  color: var(--main-text);
+  background-color: var(--main-bg);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: 400;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: none;
+}
+
+/* Icons, drawn with CSS masks so they follow the text color. */
+.icon,
+.toc-wrapper > .search::before,
+.content aside::before {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Table of contents                                                           */
+/* -------------------------------------------------------------------------- */
+
+.toc-wrapper {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--nav-width);
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  font-size: 13px;
+  font-weight: bold;
+  transition: left 0.3s ease-in-out;
+
+  /* Language selector for small devices. */
+  .lang-selector {
+    display: none;
+
+    a {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+  }
+
+  .logo {
+    display: block;
+    max-width: 100%;
+  }
+
+  & > .search {
+    position: relative;
+
+    input {
+      box-sizing: border-box;
+      width: calc(100% - 30px);
+      margin: 10px 15px;
+      padding: 6px 0 6px 20px;
+      border: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--nav-text) 40%, transparent);
+      border-radius: 0;
+      outline: none;
+      background: transparent;
+      color: var(--nav-text);
+      font: inherit;
+
+      &::placeholder {
+        color: color-mix(in srgb, var(--nav-text) 60%, transparent);
+      }
+
+      &:focus {
+        border-bottom-color: var(--nav-text);
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 15px;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cpath d='m21 21-6-6'/%3E%3C/svg%3E");
+    }
+  }
+
+  .search-results {
+    box-sizing: border-box;
+    max-height: 30vh;
+    margin: 0 0 1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--nav-subitem-bg);
+
+    li {
+      margin: 1em 15px;
+      line-height: 1.2;
+    }
+
+    a {
+      color: var(--nav-text);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* The table of contents is made of nested lists. */
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 28px;
+  }
+
+  li {
+    color: var(--nav-text);
+  }
+
+  .toc-link.active {
+    background-color: var(--nav-active-bg);
+    color: var(--nav-active-text);
+  }
+
+  .toc-link.active-parent {
+    background-color: var(--nav-subitem-bg);
+    color: var(--nav-active-text);
+  }
+
+  .da-toc-list-h2 {
+    background-color: var(--nav-subitem-bg);
+    font-weight: 500;
+  }
+
+  .toc-h2 {
+    padding-left: 25px;
+    font-size: 12px;
+  }
+
+  .toc-h3 {
+    padding-left: 40px;
+    font-size: 12px;
+  }
+
+  .toc-footer {
+    margin-top: 1em;
+    padding: 1em 0;
+    border-top: 1px dashed color-mix(in srgb, var(--nav-text) 40%, transparent);
+
+    li,
+    a {
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    li {
+      font-size: 0.8em;
+      line-height: 1.7;
+    }
+
+    ul {
+      margin-top: 0.3em;
+    }
+  }
+}
+
+.toc-link,
+.toc-footer li {
+  display: block;
+  padding: 0 15px;
+  overflow-x: hidden;
+  color: var(--nav-text);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color 130ms linear;
+}
+
+.toc-link:hover {
+  background-color: color-mix(in srgb, var(--nav-text) 8%, transparent);
+}
+
+.toc-footer li {
+  white-space: normal;
+}
+
+/* Button to show the navigation on small devices. */
+#nav-button {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  padding: 0 1.5em 5em 0; /* Increase the touch area. */
+  color: #000;
+  font-weight: bold;
+  line-height: 16px;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: left 0.3s ease-in-out;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    background-color: color-mix(in srgb, var(--main-bg) 70%, transparent);
+    border-radius: 0 0 0 5px;
+    transform-origin: 0 0;
+    transform: rotate(-90deg) translate(-100%, 0);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.open {
+    left: var(--nav-width);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Page layout and code sample background                                      */
+/* -------------------------------------------------------------------------- */
+
+.page-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100%;
+  margin-left: var(--nav-width);
+  padding-bottom: 1px; /* Prevent margin overflow. */
+  background-color: var(--main-bg);
+
+  /* The dark box sits under the content block and gives the right
+     half of the page (the code samples) its background. */
+  .dark-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--examples-width);
+    background-color: var(--examples-bg);
+  }
+
+  .lang-selector {
+    position: fixed;
+    z-index: 50;
+    border-bottom: 5px solid var(--examples-bg);
+  }
+}
+
+.lang-selector {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--code-bg);
+  font-weight: bold;
+
+  a {
+    padding: 0 10px;
+    color: var(--examples-text);
+    line-height: 30px;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--examples-text) 10%, transparent);
+    }
+
+    &.active {
+      background-color: var(--examples-bg);
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Content (prose) styles                                                      */
+/* -------------------------------------------------------------------------- */
+
+.content {
+  position: relative; /* Place content above the dark box. */
+  z-index: 30;
+  transform: translateZ(0);
+
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6,
+  & > p,
+  & > table,
+  & > ul,
+  & > ol,
+  & > aside,
+  & > dl {
+    display: block;
+    box-sizing: border-box;
+    margin-right: var(--examples-width);
+    padding: 0 var(--main-padding);
+  }
+
+  & > ul,
+  & > ol {
+    padding-left: calc(var(--main-padding) + 15px);
+  }
+
+  & > h1,
+  & > h2,
+  & > div {
+    clear: both;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    scroll-margin-top: 1em;
+  }
+
+  h1 {
+    margin-top: 2em;
+    margin-bottom: 21px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    background-color: color-mix(in srgb, var(--main-bg), #fff 80%);
+    font-size: 25px;
+  }
+
+  h1:first-child,
+  div:first-child + h1 {
+    margin-top: 0;
+    border-top-width: 0;
+  }
+
+  h2 {
+    margin-top: 4em;
+    margin-bottom: 0;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    border-top: 1px solid var(--border-color);
+    background-image: linear-gradient(to bottom, rgb(255 255 255 / 0.2), rgb(255 255 255 / 0));
+    font-size: 19px;
+  }
+
+  /* h2s right after h1s bump right up against the h1s. */
+  h1 + h2,
+  h1 + div + h2 {
+    margin-top: -21px;
+    border-top: none;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    font-size: 15px;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 13px;
+  }
+
+  a {
+    color: var(--link-color);
+  }
+
+  hr {
+    margin: 2em 0;
+    border-top: 2px solid var(--examples-bg);
+    border-bottom: 2px solid var(--main-bg);
+  }
+
+  table {
+    margin-bottom: 1em;
+    overflow: auto;
+    border-collapse: collapse;
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.6;
+
+      code {
+        white-space: nowrap;
+      }
+    }
+
+    th {
+      padding: 5px 10px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: bottom;
+    }
+
+    td {
+      padding: 10px;
+    }
+
+    tr:last-child {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tr:nth-child(odd) > td {
+      background-color: color-mix(in srgb, var(--main-bg), #fff 50%);
+    }
+
+    tr:nth-child(even) > td {
+      background-color: color-mix(in srgb, var(--main-bg), #fff 30%);
+    }
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 15px;
+  }
+
+  p,
+  li,
+  dt,
+  dd {
+    margin-top: 0;
+    line-height: 1.6;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 3px;
+    border-radius: 3px;
+    background-color: rgb(0 0 0 / 0.05);
+    font-family: var(--font-family-code);
+    font-size: var(--font-size-code);
+    line-height: 1.5;
+    word-break: break-all;
+    hyphens: auto;
+  }
+
+  pre > code {
+    padding: 0;
+    background-color: transparent;
+    word-break: normal;
+  }
+
+  aside {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background: var(--aside-notice-bg);
+    line-height: 1.6;
+
+    &.warning {
+      background-color: var(--aside-warning-bg);
+    }
+
+    &.success {
+      background-color: var(--aside-success-bg);
+    }
+
+    &::before {
+      content: "";
+      margin-right: 0.5em;
+      vertical-align: -0.15em;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm1 17h-2v-7h2v7Zm0-9h-2V7h2v2Z'/%3E%3C/svg%3E");
+    }
+
+    &.warning::before {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm1 17h-2v-2h2v2Zm0-4h-2V6h2v8Z'/%3E%3C/svg%3E");
+    }
+
+    &.success::before {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm-1.5 16-5-5 1.4-1.4 3.6 3.6 7.1-7.1L19 8.5 10.5 17Z'/%3E%3C/svg%3E");
+    }
+  }
+
+  .da-highlight-mark {
+    border-radius: 2px;
+    background: var(--highlight-bg);
+    color: #000;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Code sample styles                                                          */
+/* -------------------------------------------------------------------------- */
+
+.content {
+  & > div.highlight {
+    clear: none;
+  }
+
+  pre,
+  blockquote {
+    float: right;
+    clear: right;
+    box-sizing: border-box;
+    width: var(--examples-width);
+    margin: 0;
+    background-color: var(--code-bg);
+    color: var(--examples-text);
+
+    & > p {
+      margin: 0;
+    }
+
+    a {
+      color: var(--examples-text);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--border-color);
+    }
+  }
+
+  pre {
+    padding: 2em var(--main-padding);
+    overflow-x: auto;
+    font-family: var(--font-family-code);
+    font-size: var(--font-size-code);
+    line-height: 1.5;
+  }
+
+  blockquote > p {
+    padding: 13px 2em;
+    background-color: var(--code-annotation-bg);
+    color: color-mix(in srgb, var(--examples-text) 93%, transparent);
+  }
+}
+
+.highlight {
+  background-color: var(--code-bg);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive design                                                           */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 930px) {
+  .toc-wrapper {
+    left: calc(var(--nav-width) * -1);
+
+    &.open {
+      left: 0;
+    }
+  }
+
+  .page-wrapper {
+    margin-left: 0;
+  }
+
+  #nav-button {
+    display: block;
+  }
+
+  .toc-link {
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+  }
+}
+
+@media (max-width: 700px) {
+  .dark-box {
+    display: none;
+  }
+
+  .toc-wrapper .lang-selector {
+    display: flex;
+  }
+
+  /* Keep the language tabs reachable, pinned to the top of the page. */
+  .page-wrapper:has(.lang-selector) {
+    padding-top: 35px;
+
+    .dark-box:has(.lang-selector) {
+      display: block;
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      bottom: auto;
+      left: 0;
+      width: 100%;
+    }
+
+    .lang-selector {
+      position: static;
+      padding-left: 70px; /* Leave room for the nav button. */
+    }
+  }
+
+  .content {
+    & > h1,
+    & > h2,
+    & > h3,
+    & > h4,
+    & > h5,
+    & > h6,
+    & > p,
+    & > table,
+    & > ul,
+    & > ol,
+    & > aside,
+    & > dl {
+      margin-right: 0;
+    }
+
+    pre,
+    blockquote {
+      width: auto;
+      float: none;
+    }
+
+    & > table {
+      overflow-x: auto;
+    }
+  }
+
+  .highlight + p,
+  .content blockquote + p {
+    margin-top: var(--main-padding);
+  }
+}

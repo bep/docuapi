@@ -1,0 +1,48 @@
+/* Default design tokens.
+   Override in assets/css/docuapi/vars-custom.css, or in site config:
+
+   [params.docuapi.cssvars]
+     nav-bg = "#254e70"
+*/
+:root {
+  /* Left navigation. */
+  --nav-bg: #2e3336;
+  --nav-text: #fff;
+  --nav-subitem-bg: #1e2224;
+  --nav-active-bg: #0f75d4;
+  --nav-active-text: #fff;
+
+  /* Main (prose) column. */
+  --main-bg: #f3f7f9;
+  --main-text: #333;
+  --border-color: #ccc;
+  --link-color: #0f75d4;
+
+  /* Examples (code) column. */
+  --examples-bg: #2e3336;
+  --examples-text: #fff;
+  --code-bg: #1e2224;
+  --code-annotation-bg: #191d1f;
+
+  /* Asides. */
+  --aside-notice-bg: #8fbcd4;
+  --aside-warning-bg: #c97a7e;
+  --aside-success-bg: #6ac174;
+
+  /* Search match highlight. */
+  --highlight-bg: #f7e633;
+
+  /* Fonts. */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --font-family-code: ui-monospace, Consolas, Menlo, Monaco, "Liberation Mono",
+    "DejaVu Sans Mono", "Courier New", monospace;
+  --font-size: 14px;
+  --font-size-code: 12px;
+
+  /* Layout. */
+  --nav-width: 230px;
+  --examples-width: 50%;
+  --main-padding: 28px;
+}
