@@ -4,7 +4,7 @@ licenselink = "https://github.com/bep/docuapi/blob/master/LICENSE.md"
 description = "Beautiful documentation for your API."
 homepage = "https://github.com/bep/docuapi"
 demosite = "https://docuapi.netlify.app/"
-tags = ["documentation", "api", "docs", "sass", "multilingual"]
+tags = ["documentation", "api", "docs", "multilingual"]
 features = ["Documentation", "Multilingual"]
 
 [author]

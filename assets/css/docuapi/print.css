@@ -1,0 +1,121 @@
+/* Imported with the print media type from styles.css. */
+.toc-wrapper,
+.toc-footer,
+.lang-selector,
+.search,
+#nav-button,
+.dark-box {
+  display: none !important;
+}
+
+html,
+body,
+.page-wrapper {
+  background: #fff;
+  color: #000;
+}
+
+.page-wrapper {
+  margin-left: 0;
+}
+
+.content {
+  font-size: 12px;
+  transform: none;
+
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6,
+  & > p,
+  & > table,
+  & > ul,
+  & > ol,
+  & > aside,
+  & > dl {
+    margin-right: 0;
+  }
+
+  pre,
+  blockquote {
+    width: auto;
+    float: none;
+  }
+
+  pre,
+  code {
+    border: 1px solid #999;
+    border-radius: 5px;
+    font-size: 0.8em;
+  }
+
+  pre {
+    padding: 1.3em;
+    white-space: pre-wrap;
+
+    code {
+      border: 0;
+    }
+  }
+
+  code {
+    padding: 0.2em;
+  }
+
+  table {
+    border: 1px solid #999;
+
+    tr {
+      border-bottom: 1px solid #999;
+    }
+
+    td,
+    th {
+      padding: 0.7em;
+      background: none !important;
+    }
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  h1 {
+    margin-top: 1em;
+    border: 2px solid #ccc;
+    border-width: 2px 0;
+    background: none;
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 2em;
+    padding-top: 0.8em;
+    border-top: 2px solid #ccc;
+    background: none;
+  }
+
+  h1 + h2,
+  h1 + div + h2 {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-transform: uppercase;
+  }
+
+  aside {
+    padding: 1em var(--main-padding);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: none !important;
+  }
+}

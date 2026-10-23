@@ -16,15 +16,12 @@ Import the theme in your Hugo config:
 
 ```toml
 [[module.imports]]
-path = "github.com/bep/docuapi/v2"
+path = "github.com/bep/docuapi/v3"
 ```
 
-Note, if you want the older jQuery-version, replace the path with `github.com/bep/docuapi`.
+v3 requires Hugo v0.161.0 or later. It builds its styles with Hugo's built-in `css.Build`, so there's no need for the extended Hugo version, Sass, PostCSS or Node.js.
 
-If you want to edit the SCSS styles, you need:
-
-* The extended Hugo version.
-* PostCSS CLI (run `npm install` to install requirements)
+Note, if you want the older Sass-based version, replace the path with `github.com/bep/docuapi/v2`, and for the older jQuery-version, `github.com/bep/docuapi`.
 
 See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) and more specific its site [configuration](https://github.com/bep/docuapi/blob/master/exampleSite/hugo.toml) for the available options.
 
@@ -32,7 +29,18 @@ See the [exampleSite](https://github.com/bep/docuapi/tree/master/exampleSite) an
 
 If you want a different page selection, please provide your own `layouts/index.html` template.
 
-You can customize the look-and-feel by adding your own CSS variables in `assets/scss/docuapi_overrides.scss`. See the exampleSite folder for an example.
+## Styling
+
+You can customize the look-and-feel by setting CSS variables in your site configuration. These take precedence over the theme defaults:
+
+```toml
+[params.docuapi.cssvars]
+  nav-bg      = "#254e70"
+  examples-bg = "#002642"
+  font-family = '"Source Sans 3", sans-serif'
+```
+
+See [assets/css/docuapi/vars.css](https://github.com/bep/docuapi/blob/master/assets/css/docuapi/vars.css) for the available variables. You can also set them in your own `assets/css/docuapi/vars-custom.css`, which is empty in the theme. For more extensive changes, use `partials/hook_head_end.html` to add your own stylesheet.
 
 ## Hooks
 
@@ -42,7 +50,7 @@ You can override the layouts by providing some custom partials:
 * `partials/hook_body_end.html` which should be clear by its name.
 * `partials/hook_left_sidebar_start.html` the start of the left sidebar
 * `partials/hook_left_sidebar_end.html` the end of the left sidebar
-* `partials/hook_left_sidebar_logo.html` the log `img` source
+* `partials/hook_left_sidebar_logo.html` the logo `img` source
 
 The styles and Javascript import are also put in each partial and as such can be overridden if really needed:
 

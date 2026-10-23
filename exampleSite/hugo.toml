@@ -24,11 +24,19 @@ defaultContentLanguage = "en"
   [module.hugoVersion]
   [[module.imports]]
     # This is replaced in go.mod to point to the directory above.
-    path = "github.com/bep/docuapi/v2"
+    path = "github.com/bep/docuapi/v3"
 
 [params]
   search       = true
   maxMenuDepth = 3    # (optional) available options are: 1, 2, or 3 (default: 2)
+
+  # Override the theme's CSS variables (design tokens).
+  # See assets/css/docuapi/vars.css in the theme for the full list.
+  [params.docuapi.cssvars]
+    nav-bg      = "#254e70"
+    examples-bg = "#002642"
+    font-family = '"Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    font-size   = "15px"
 
   # Configure the language example tabs.
   [[params.language_tabs]]
