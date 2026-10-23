@@ -1,9 +1,12 @@
 {{/* CSS variables in site config (params.docuapi.cssvars) win over the theme defaults and vars-custom.css. */}}
 {{ with resources.Get "css/docuapi/styles.css" }}
+	{{/* Code highlighting styles for the configured markup.highlight.style, imported as chroma.css. */}}
+	{{ $chroma := css.ChromaStyles (dict "targetPath" "css/docuapi/chroma.css") }}
 	{{ $opts := dict
 		"targetPath" "styles/docuapi.css"
 		"vars" (site.Params.docuapi.cssvars | default dict)
 		"target" (slice "chrome115" "edge115" "firefox116" "ios16.4" "opera101" "safari16.4")
+		"importContext" (slice $chroma)
 		"minify" (cond hugo.IsDevelopment false true)
 		"sourceMap" (cond hugo.IsDevelopment "linked" "none")
 	}}

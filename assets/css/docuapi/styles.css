@@ -2,6 +2,7 @@
 @import "vars.css";
 @import "vars-custom.css";
 @import "hugo:vars";
+@import "chroma.css";
 @import "print.css" print;
 
 /*
@@ -570,8 +571,6 @@ body {
     box-sizing: border-box;
     width: var(--examples-width);
     margin: 0;
-    background-color: var(--code-bg);
-    color: var(--examples-text);
 
     & > p {
       margin: 0;
@@ -599,8 +598,11 @@ body {
   }
 }
 
-.highlight {
+/* Zero specificity, so highlighted code (.chroma) gets its colors from
+   the Chroma style. */
+:where(.content) :where(pre, blockquote) {
   background-color: var(--code-bg);
+  color: var(--examples-text);
 }
 
 /* -------------------------------------------------------------------------- */
